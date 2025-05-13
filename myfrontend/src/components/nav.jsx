@@ -211,7 +211,7 @@ const logout = () => {
             <ul className="hidden md:flex gap-8 text-sm font-medium w-full justify-around">
               <li><Link to="/">Home</Link></li>
               <li><Link to="/view_auction">View Auction</Link></li>
-              <li><Link to="/budget_auction">Budget Auction</Link></li>
+              <li><Link to="/bank_auction">Bank Auction</Link></li>
               <li><Link to="/area_auction">Area Auction</Link></li>
               <li><Link to="/expert_advice">Call Expert</Link></li>
               <li>
@@ -256,7 +256,7 @@ const logout = () => {
 
               <Link to="/" onClick={toggleSidebar}>Home</Link>
               <Link to="/view_auction" onClick={toggleSidebar}>View Auction</Link>
-              <Link to="/budget_auction" onClick={toggleSidebar}>Budget Auction</Link>
+              <Link to="/bank_auction" onClick={toggleSidebar}>Bank Auction</Link>
               <Link to="/area_auction" onClick={toggleSidebar}>Area Auction</Link>
               <Link to="/expert_advice" onClick={toggleSidebar}>Call Expert</Link>
 
