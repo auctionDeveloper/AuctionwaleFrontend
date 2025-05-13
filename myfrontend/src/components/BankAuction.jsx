@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';  // Import useNavigate
 import SBI from '../assets/SBI.svg';
 import BOB from '../assets/BOB.svg';
 import KOTAK from '../assets/Kotak.svg';
@@ -27,6 +28,11 @@ const bottomRowBanks = [
 ];
 
 export default function BankAuctions() {
+    const navigate = useNavigate();  // Initialize the navigate hook
+
+  const handleMoreBanksClick = () => {
+    navigate('/bank_auction');  // Navigate to the "bank_auction" page
+  };
   return (
     <div className="relative bg-white w-full overflow-x-hidden pb-16">
       {/* Blue Bank Section */}
@@ -80,7 +86,9 @@ export default function BankAuctions() {
 
       {/* Floating More Banks Button (OUTSIDE) */}
       <div className="absolute bottom-11 left-1/2 transform -translate-x-1/2 z-20">
-        <button className=" bg-white text-[#0B3448] font-semibold text-sm px-6 py-2 rounded-full flex items-center gap-2 transition-all duration-300 hover:bg-[#930000] hover:text-white border border-[#0B3448] hover:bg-[#930000] hover:text-white hover:border-transparent shadow-2xl ">
+        <button
+        onClick={handleMoreBanksClick}
+         className=" bg-white text-[#0B3448] font-semibold text-sm px-6 py-2 rounded-full flex items-center gap-2 transition-all duration-300 hover:bg-[#930000] hover:text-white border border-[#0B3448] hover:bg-[#930000] hover:text-white hover:border-transparent shadow-2xl ">
           More Banks <span className="text-2xl font-semibold leading-none pb-1">+</span>
         </button>
       </div>

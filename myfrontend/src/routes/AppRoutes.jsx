@@ -12,6 +12,7 @@ import FAQs from "../pages/FAQs";
 import SearchPage from "../pages/SearchPage";
 import HeartWishlistButton from "../components/HeartWishlistButton";
 import HeartWishlist from "../pages/HeartWishlist";
+import BankAuctionPage from "../components/BankAuctionPage";
 
 
 export default function AppRoutes() {
@@ -23,6 +24,7 @@ export default function AppRoutes() {
       <Route path="/view_auction" element={<View_Acution />} />
       <Route path="/budget_auction" element={<Budget_Auction />} />
       <Route path="/area_auction" element={<Area_Auction/>} />
+      <Route path="/bank_auction" element={<BankAuctionPage/>}/>
       <Route path="/expert_advice" element={<Expert_Advice/>} />
       <Route path="/features" element={<Features/>} />
       <Route path="/contact" element={<Contact/>} />
