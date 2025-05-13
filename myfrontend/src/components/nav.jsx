@@ -220,7 +220,6 @@ const logout = () => {
                 </button>
               </li>
               <li><Link to="/FAQ">FAQs</Link></li>
-              <li><Link to="/contact">Contact</Link></li>
             </ul>
 
             <div className="md:hidden flex items-center gap-2 ml-auto order-2">
@@ -278,7 +277,7 @@ const logout = () => {
               )}
 
               <Link to="/FAQ" onClick={toggleSidebar}>FAQs</Link>
-              <Link to="/contact" onClick={toggleSidebar}>Contact</Link>
+    
             </div>
           </div>
         </div>
