@@ -42,8 +42,8 @@
   }
 
   .punjab {
-    top: 24%;
-    left: 35%;
+    top: 25%;
+    left: 38%;
   }
   .himachal{
     top:22%;
@@ -131,16 +131,16 @@
     left:36% 
 }
 .goa{
-    top:67%;
-    left:33% 
+    top:69%;
+    left:35% 
 }
 .telangana{
     top:64%;
     left:42% 
 }
 .karnataka{
-    top:73%;
-    left:35% 
+    top:71%;
+    left:37% 
 }
 .andrapradesh{
     top:73%;
@@ -152,7 +152,7 @@
 }
 .kerala{
     top:84%;
-    left:37% 
+    left:39% 
 }
 }
 
@@ -184,9 +184,10 @@
     top: 15%; /* Adjust the top position */
     left: 37%; /* Adjust the left position */
   }
+
   .punjab {
-    top: 24%;
-    left: 35%;
+    top: 25%;
+    left: 38%;
   }
   .himachal{
     top:22%;
@@ -230,7 +231,7 @@
 }
 .assam{
    top:36%;
-    left:62%
+    left:63%
 }
 .meghalaya{
  top:40%;
@@ -247,7 +248,7 @@
 
 .nagaland{
    top:37%;
-    left:69%
+    left:68%
 }
 .arunachalpardesh{
    top:30%;
@@ -274,16 +275,16 @@
     left:36% 
 }
 .goa{
-    top:67%;
-    left:33% 
+    top:69%;
+    left:35% 
 }
 .telangana{
     top:64%;
     left:42% 
 }
 .karnataka{
-    top:73%;
-    left:35% 
+    top:71%;
+    left:37% 
 }
 .andrapradesh{
     top:73%;
@@ -295,190 +296,324 @@
 }
 .kerala{
     top:84%;
-    left:37% 
+    left:39% 
 }
 }
 
 /* Mobile Styles */
 @media (max-width: 767px) {
   .map-container {
-  position: relative;
-  width: 100%;
-  height: 100vh; /* Full height of viewport */
-  max-width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: visible;
-}
-.responsive-map {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 80%; /* Full width */
-  height: 100%; /* Full height */
-  object-fit: cover; /* Ensure it covers the container */
-}
+    position: relative;
+    width: 100%;
+    height: 100vh; /* Full height of viewport */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .responsive-map {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    object-fit: contain; /* Ensure it maintains the aspect ratio */
+  }
 .state{
-  font-size:11px
+  font-size:10px
 }
 .state svg{
-  font-size: 12px;
+  font-size: 10px;
     margin-right: 2px;
 }
-  .jammu {
-    top: 15%; /* Adjust the top position */
-    left: 37%; /* Adjust the left position */
+   .jammu {
+    top: 22%; /* Adjust the top position */
+    left: 35%; /* Adjust the left position */
   }
+
   .punjab {
-    top: 24%;
+    top: 30%;
     left: 35%;
   }
   .himachal{
-    top:22%;
-    left:41%
+    top:28%;
+    left:40%
   }
   .uttrakhand{
-    top:27%;
+    top:32%;
     left:44%;
   }
   .haryana{
-    top:29%;
-    left:39%
+    top:33%;
+    left:36%
   }
     .delhi{
-    top:32%;
-    left:41%
+    top:36%;
+    left:39%
   }
   .rajasthan{
-    top:35%;
-    left:33%
+    top:39%;
+    left:28%
   }
 .uttarpardesh{
-      top:36%;
-    left:44%
+      top:38%;
+    left:42%
 }
 .bihar{
-      top:40%;
-    left:54%
+      top:42%;
+    left:55%
 }
 .jharkhand{
-      top:45%;
+      top:46%;
     left:53%
 }
 .bengal{
-      top:49%;
-    left:57%
+      top:48%;
+    left:58%
 }
 .sikkim{
-  top:34%;
-    left:59%
+  top:37%;
+    left:60%
 }
 .assam{
-   top:36%;
-    left:62%
+   top:39%;
+    left:65%
 }
 .meghalaya{
- top:40%;
-    left:62%
+ top:42%;
+    left:65%
 }
 .tripura{
-   top:44%;
-    left:61%
+   top:45%;
+    left:65%
 }
 .mizoram{
    top:47%;
-    left:65%
+    left:70%
 }
 
 .nagaland{
-   top:37%;
-    left:69%
+   top:39%;
+    left:73%
 }
 .arunachalpardesh{
-   top:30%;
-    left:64%
+   top:34%;
+    left:72%
 }
 .gujrat{
-    top:47%;
-    left:31% 
+    top:48%;
+    left:26% 
 }
 .madhyapradesh{
-    top:47%;
-    left:38% 
+    top:48%;
+    left:35% 
 }
 .chattishgarh{
-    top:52%;
-    left:47% 
+    top:50%;
+    left:48% 
 }
 .orissa{
     top:54%;
-    left:52% 
+    left:51% 
 }
 .maharashtra{
-    top:56%;
-    left:36% 
+    top:55%;
+    left:32% 
 }
 .goa{
-    top:67%;
-    left:33% 
+    top:63%;
+    left:30% 
 }
 .telangana{
-    top:64%;
-    left:42% 
+    top:60%;
+    left:41% 
 }
 .karnataka{
-    top:73%;
-    left:35% 
+    top:69%;
+    left:34% 
 }
 .andrapradesh{
-    top:73%;
-    left:43% 
+    top:67%;
+    left:41% 
 }
 .tamilnadu{
-    top:82%;
-    left:42% 
+    top:75%;
+    left:40% 
 }
 .kerala{
-    top:84%;
-    left:37% 
+    top:77%;
+    left:36% 
 }
 }
+
 /* For smaller screens (max-width: 480px) */
-@media (max-width: 480px) {
-    .map-container {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  max-width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.responsive-map {
-  position: relative;
-  width: 80%; /* Adjust this width as needed */
-  height: auto;
-  object-fit: contain;
-}
+@media (max-width: 600px) {
+  .map-container {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .responsive-map {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%; /* Full width */
+
+    object-fit: contain; /* Ensure the image fits and maintains aspect ratio */
+  }
+
+
 .state{
-  font-size: 8px;
+  font-size:8px
 }
 .state svg{
-  font-size: 8px;
-    margin-right: 1px;
+  font-size: 10px;
+    margin-right: 2px;
 }
-  .jammu {
-    top: 13%;
-    left: 33%;
+   .jammu {
+    top: 25%; /* Adjust the top position */
+    left: 35%; /* Adjust the left position */
   }
 
   .punjab {
-    top: 40%;
-    left: 50%;
+    top: 30%;
+    left: 35%;
   }
+  .himachal{
+    top:28%;
+    left:40%
+  }
+  .uttrakhand{
+    top:32%;
+    left:44%;
+  }
+  .haryana{
+    top:33%;
+    left:36%
+  }
+    .delhi{
+    top:36%;
+    left:39%
+  }
+  .rajasthan{
+    top:39%;
+    left:28%
+  }
+.uttarpardesh{
+      top:38%;
+    left:42%
+}
+.bihar{
+      top:42%;
+    left:55%
+}
+.jharkhand{
+      top:46%;
+    left:53%
+}
+.bengal{
+      top:48%;
+    left:58%
+}
+.sikkim{
+  top:37%;
+    left:60%
+}
+.assam{
+   top:39%;
+    left:65%
+}
+.meghalaya{
+ top:42%;
+    left:65%
+}
+.tripura{
+   top:45%;
+    left:65%
+}
+.mizoram{
+   top:47%;
+    left:70%
 }
 
+.nagaland{
+   top:39%;
+    left:73%
+}
+.arunachalpardesh{
+   top:34%;
+    left:72%
+}
+.gujrat{
+    top:48%;
+    left:26% 
+}
+.madhyapradesh{
+    top:48%;
+    left:35% 
+}
+.chattishgarh{
+    top:50%;
+    left:48% 
+}
+.orissa{
+    top:54%;
+    left:51% 
+}
+.maharashtra{
+    top:55%;
+    left:32% 
+}
+.goa{
+    top:63%;
+    left:30% 
+}
+.telangana{
+    top:60%;
+    left:41% 
+}
+.karnataka{
+    top:69%;
+    left:34% 
+}
+.andrapradesh{
+    top:67%;
+    left:41% 
+}
+.tamilnadu{
+    top:75%;
+    left:40% 
+}
+.kerala{
+    top:77%;
+    left:36% 
+}
+}
+@media (max-width: 480px) {
+  .map-container {
+    position: relative;
+    width: 100%;
+    height:550px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .responsive-map {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%; /* Full width */
+
+   object-fit: cover; /* Ensure the image fits and maintains aspect ratio */
+  }
+}
 
 
 

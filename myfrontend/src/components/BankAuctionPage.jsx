@@ -25,6 +25,7 @@ export default function BankAuctionPage() {
       <p>Explore</p>
     </div>
      <div className="map-container">
+      
       {/* Image of India Map */}
       <img 
         src={INDIA}
