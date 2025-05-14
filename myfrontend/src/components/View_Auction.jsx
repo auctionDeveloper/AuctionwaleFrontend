@@ -27,10 +27,10 @@ export default function View_Auction() {
           {/* Background of the toggle */}
           <span
             className={`${
-              isAvailable ? "bg-blue-500" : "bg-gray-300"
+              isAvailable ? "bg-blue-600" : "bg-red-600"
             } absolute inset-0 rounded-full transition-colors duration-300`}
           ></span>
-          {/* The circle inside the toggle */}
+          {/* The white circle inside the toggle */}
           <span
             className={`${
               isAvailable ? "translate-x-8" : "translate-x-0"
