@@ -192,7 +192,7 @@ const logout = () => {
               </>
             ) : (
               <button
-                className="px-5 py-2 border border-gray-300 text-sm rounded-full hover:bg-[#0D364A] hover:text-white"
+                className="px-5 py-3 border border-gray-300 text-sm rounded-full hover:bg-[#0D364A] hover:text-white"
                 onClick={() => setShowLoginModal(true)}
               >
                 Login
@@ -234,17 +234,24 @@ const logout = () => {
 </div>
 
 
-              {loggedInUser && (
-                <>
-                  <span className="text-white text-sm">Hi, {loggedInUser}</span>
-                  <img
-                    src="/src/assets/profile-icon.jpg"
-                    alt="Profile"
-                    className="w-8 h-8 rounded-full object-cover cursor-pointer"
-                    onClick={handleProfileClick}
-                  />
-                </>
-              )}
+              {loggedInUser ? (
+          <>
+            <span className="text-white text-sm">Hi, {loggedInUser}</span>
+            <img
+              src="/src/assets/profile-icon.jpg"
+              alt="Profile"
+              className="w-8 h-8 rounded-full object-cover cursor-pointer"
+              onClick={handleProfileClick}
+            />
+          </>
+        ) : (
+          <button
+            className="px-4 py-2 text-white bg-[#930000] rounded-full hover:bg-[#0D364A]"
+            onClick={() => setShowLoginModal(true)}
+          >
+            Login
+          </button>
+        )}
             </div>
           </div>
 
