@@ -150,7 +150,7 @@ export default function AreaCurvedCarousel() {
           {images.map((src, index) => (
             <div
               key={index}
-              className="group shrink-0 w-[35vw] sm:w-[22vw] h-[83vh] sm:h-[90vh] rounded-3xl overflow-hidden relative transition-transform duration-300 z-20 "
+              className="group shrink-0 w-[45vw] sm:w-[22vw] h-[83vh] sm:h-[90vh] rounded-3xl overflow-hidden relative transition-transform duration-300 z-20 "
             >
               <img
                 src={src}

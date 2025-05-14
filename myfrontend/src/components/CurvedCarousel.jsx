@@ -138,7 +138,7 @@ export default function CurvedCarousel() {
 
         <div ref={scrollRef} className="flex overflow-x-auto scroll-smooth no-scrollbar px-[5vw] space-x-5">
           {images.map((src, index) => (
-            <div key={index} className="group shrink-0 w-[35vw] sm:w-[22vw] h-[83vh] sm:h-[97vh] rounded-3xl overflow-hidden relative transition-transform duration-300 z-20">
+            <div key={index} className="group shrink-0 w-[45vw] sm:w-[22vw] h-[83vh] sm:h-[97vh] rounded-3xl overflow-hidden relative transition-transform duration-300 z-20">
               <img src={src} alt={`img-${index}`} className="w-full h-full object-cover rounded-3xl" />
               <div onClick={() => toggleLike(index)} className="absolute top-[125px] right-4 z-40 cursor-pointer hover:scale-110 transition-transform">
                 <div className="bg-white rounded-full p-2 shadow-md flex items-center justify-center w-8 sm:w-11 h-8 pb-1 sm:h-11">

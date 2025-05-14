@@ -4,7 +4,7 @@
 .map-container {
   position: relative;
   width: 100%;
-  height: 100%; /* Ensure it's full height */
+  height: 100%;
   max-width: 100%;
   display: flex;
   justify-content: center;
@@ -13,9 +13,9 @@
 
 .responsive-map {
   position: relative;
-  width: 80%; /* You can adjust this */
-  height: auto;
-  object-fit: contain;
+  width: 100%; /* Adjust this width as needed */
+  height: 100%;
+  object-fit: cfil;
 }
 
 .state-position {
@@ -30,6 +30,7 @@
   display: flex;
   align-items: center;
   position: absolute; /* Absolute positioning for each state */
+  font-size: 0.9rem;
 }
 
 .state-name {
@@ -48,11 +49,13 @@
   .jammu {
     top: 25%;  /* Adjust the top position */
     left: 35%;  /* Adjust the left position */
+    font-size: 1rem;
   }
 
   .punjab {
     top: 20%;
     left: 40%;
+    font-size: 1rem;
   }
 
   /* Add more states here */
@@ -61,13 +64,15 @@
 /* Tablet */
 @media (max-width: 1023px) and (min-width: 768px) {
   .jammu {
-    top: 30%;  /* Adjust the top position for tablet */
-    left: 35%;  /* Adjust the left position for tablet */
+    top: 30%;
+    left: 35%;
+    font-size: 0.8rem;
   }
 
   .punjab {
     top: 25%;
     left: 40%;
+    font-size: 0.8rem;
   }
 }
 
@@ -76,10 +81,79 @@
   .jammu {
     top: 40%;  /* Adjust the top position for mobile */
     left: 30%;
+    font-size: 0.7rem;
   }
 
   .punjab {
     top: 35%;
     left: 30%;
+    font-size: 0.7rem;
   }
+
+  /* You can add more responsive adjustments for other states */
+}
+
+/* Red Dot Size Responsive */
+.state svg {
+  font-size: 1.2rem;
+  transition: font-size 0.3s ease;
+}
+
+@media (max-width: 1023px) {
+  .state svg {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .state svg {
+    font-size: 0.8rem;
+  }
+}
+
+/* Popup Styling */
+.popup {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  width: 250px; /* Adjust this width */
+  height: auto;
+  background-color: white;
+  border-left: 2px solid #ccc;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.3);
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  transform: translateY(-50%); /* Center the popup vertically */
+}
+
+.popup-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.close-button {
+  background-color: red;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.close-button:hover {
+  background-color: darkred;
+}
+
+.popup h2 {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+.popup p {
+  font-size: 1rem;
+  color: #333;
 }
