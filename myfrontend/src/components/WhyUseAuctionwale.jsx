@@ -12,9 +12,9 @@ const features = [
 
 export default function WhyUseAuctionwale() {
   return (
-    <section className="mt-[-90px] px-4 bg-white text-center overflow-hidden z-[999]">
+    <section className="mt-[-95px] px-4 bg-white text-center overflow-hidden z-[999]">
       {/* Decorative Heading with Dots */}
-      <div className="flex items-center justify-center mb-10 relative mt-[10px]">
+      <div className="flex items-center justify-center mb-10 relative mt-[8px]">
         <div className="flex-grow h-px bg-[#0B3448] mr-2 relative text-extrabold">
           <span className="absolute right-0 top-1/2 transform -translate-y-1/2 w-2 h-2 bg-[#0B3448] rounded-full" />
         </div>
@@ -48,7 +48,7 @@ export default function WhyUseAuctionwale() {
       </div>
 
       {/* Row 2: 3 Items */}
-      <div className="grid grid-cols-3 gap-4 sm:gap-10 justify-center max-w-[70%] mx-auto mt-2 lg:mt-10 overflow-hidden">
+      <div className="grid grid-cols-3 gap-4 sm:gap-10 justify-center max-w-[70%] mx-auto mt-0 lg:mt-10 overflow-hidden">
         {features.slice(4).map((feature, index) => (
           <div
             key={index}

@@ -266,7 +266,6 @@ const logout = () => {
               </div>
               {mobileFeatures && (
                 <ul className="ml-4 text-sm flex flex-col gap-2 mt-1">
-                  <li>Area Report</li>
                   <li>Photo & Videos</li>
                   <li>TSR</li>
                   <li>Valuation Report</li>
@@ -291,7 +290,6 @@ const logout = () => {
           style={{ top: `${featuresPosition.top}px`, left: `${featuresPosition.left}px` }}
         >
           <ul className="text-sm">
-            <li className="px-4 py-2 hover:bg-gray-100">Area Report</li>
             <li className="px-4 py-2 hover:bg-gray-100">Photo & Videos</li>
             <li className="px-4 py-2 hover:bg-gray-100">TSR</li>
             <li className="px-4 py-2 hover:bg-gray-100">Valuation Report</li>
