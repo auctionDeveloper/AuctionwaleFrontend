@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import INDIA from '../assets/INDIA.svg';  // Path to your India map image
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import './BankAuctionPage.css';  // Import the CSS file
+import { MapPin, Coins, Search } from "lucide-react";
 
 export default function BankAuctionPage() {
   const [showPopup, setShowPopup] = useState(false);
@@ -20,9 +21,9 @@ export default function BankAuctionPage() {
 
   return (
    <div className='flex flex-col bg-[#7E7E7E]'>
-    <div className='flex flex-col items-center justify-center my-5'>
-      <h1 className='font-extrabold text-2xl'>Bank Auction</h1>
-      <p>Explore</p>
+    <div className='flex flex-col items-center justify-center mt-5'>
+      <h1 className='font-bold text-4xl text-white pb-2'>Bank Auction</h1>
+      <div className="flex items-center gap-1 px-3 py-2 flex-grow-0"><MapPin className="text-orange-700 w-4 h-4 font-extrabolod" /><p className='text-white'>Explore auctions through Map</p></div>
     </div>
      <div className="map-container">
       
