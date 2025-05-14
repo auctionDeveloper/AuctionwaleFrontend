@@ -68,7 +68,7 @@ export default function View_Auction() {
 
       {/* Mobile Filters Dropdown Section */}
       {isFiltersVisible && (
-        <div className="md:hidden fixed top-16 left-0 right-0 bg-white shadow-md p-4 z-10">
+        <div className="md:hidden fixed top-16 left-0 right-0 bg-white shadow-md p-4 z-20">
           <div className="flex justify-between mb-4">
             <button
               onClick={() => setFiltersVisible(false)}
@@ -79,7 +79,7 @@ export default function View_Auction() {
           </div>
 
           {/* Filter options as buttons with dropdown */}
-          <div className="flex flex-col space-y-4 py-2">
+          <div className="flex space-x-4 overflow-x-auto py-2">
             {["budget", "propertyType", "location", "availability"].map(
               (filter) => (
                 <div key={filter} className="flex flex-col items-center w-24">

@@ -103,14 +103,14 @@ export default function CurvedCarousel() {
             <ChevronDown className="text-gray-700 hover:text-red-600 mb-2" />
           </div>
           <p className="text-gray-500 text-sm sm:text-base font-medium mt-1">
-            Save Your pocket by looking <span className="font-semibold text-gray-700">budgetwise</span> projects.
+            Save Your pocket by looking <span className="font-semibold text-gray-700 mb-2">budgetwise</span> projects.
           </p>
         </div>
 
         {showDropdown && (
           <div
             ref={dropdownRef}
-            className="absolute top-[110px] left-1/2 transform -translate-x-1/7 bg-white shadow-lg rounded-md z-[10000] w-48"
+            className="absolute top-[50px] left-1/2 transform -translate-x-1/7 bg-white shadow-lg rounded-md z-[10000] w-48"
           >
             <ul className="text-sm text-gray-700">
               <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer" onClick={() => handleOptionClick("under-25-lakhs")}>Under 25 Lakhs</li>
@@ -124,7 +124,7 @@ export default function CurvedCarousel() {
           className="absolute left-1/2 transform -translate-x-1/2 w-[150vw] z-30 pointer-events-none pb-1"
           style={{
             bottom: "-390px",
-            height: "590px",
+            height: "570px",
             backgroundColor: "#ffffff",
             borderTopLeftRadius: "100%",
             borderTopRightRadius: "100%"
@@ -138,7 +138,7 @@ export default function CurvedCarousel() {
 
         <div ref={scrollRef} className="flex overflow-x-auto scroll-smooth no-scrollbar px-[5vw] space-x-5">
           {images.map((src, index) => (
-            <div key={index} className="group shrink-0 w-[30vw] sm:w-[22vw] h-[60vh] sm:h-[90vh] rounded-3xl overflow-hidden relative transition-transform duration-300 z-20">
+            <div key={index} className="group shrink-0 w-[35vw] sm:w-[22vw] h-[83vh] sm:h-[97vh] rounded-3xl overflow-hidden relative transition-transform duration-300 z-20">
               <img src={src} alt={`img-${index}`} className="w-full h-full object-cover rounded-3xl" />
               <div onClick={() => toggleLike(index)} className="absolute top-[125px] right-4 z-40 cursor-pointer hover:scale-110 transition-transform">
                 <div className="bg-white rounded-full p-2 shadow-md flex items-center justify-center w-8 sm:w-11 h-8 pb-1 sm:h-11">
@@ -150,12 +150,12 @@ export default function CurvedCarousel() {
                 </div>
               </div>
               <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition duration-300 flex flex-col justify-end text-white rounded-3xl">
-                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-end items-center text-center sm:text-left px-1 sm:px-14 pb-6 sm:pb-8 py-10 gap-2 sm:gap-0">
-                  <div className="absolute bottom-40">
+                <div className="flex flex-col lg:flex-row lg:justify-between lg:items-end items-center text-center sm:text-left px-1 sm:px-14 pb-6 sm:pb-8 py-10 gap-2 sm:gap-0">
+                  <div className="absolute  bottom-40 sm:bottom-44 py-3">
                     <p className="text-base sm:text-lg md:text-xl font-semibold">Image Title</p>
                     <p className="text-xs sm:text-sm opacity-80">2-word Text</p>
                   </div>
-                  <button onClick={() => navigate('/budget_auction')} className="absolute bottom-40 sm:bottom-44 right-[0] sm:right-10 text-white text-2xl font-bold p-2 hover:scale-110 transition">
+                  <button onClick={() => navigate('/budget_auction')} className="absolute bottom-40 sm:bottom-44 right-[0] py-4 lg:right-10 text-white text-2xl font-bold p-2 hover:scale-110 transition">
                     <ArrowRight className="w-6 h-6" />
                   </button>
                 </div>

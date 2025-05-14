@@ -1,6 +1,7 @@
 import React from 'react';
 import INDIA from '../assets/INDIA.svg';  // Path to your India map SVG
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
+import './BankAuctionPage.css';  // Import the CSS file
 
 export default function BankAuctionPage() {
   return (
@@ -27,6 +28,8 @@ export default function BankAuctionPage() {
         <FiberManualRecordIcon style={{ fontSize: 18, color: 'red', marginRight: '8px' }} />
         Punjab
       </button>
+
+      {/* Add more states here */}
     </div>
   );
 }

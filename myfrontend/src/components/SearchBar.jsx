@@ -64,8 +64,8 @@ export default function SearchBar() {
     <div className="w-auto px-4 md:px-8 py-10 flex justify-center bg-white relative">
       <div className="w-full max-w-6xl flex flex-col items-center relative text-xs">
         {/* 🔵 Blue Tab */}
-        <div className="bg-[#123243] rounded-t-full py-4 px-6 w-full sm:w-[750px] z-0 mx-2">
-          <div className="flex justify-center flex-wrap gap-x-1 sm:gap-x-6 gap-y-1 sm:gap-y-2 text-white text-xs pb-6">
+        <div className="bg-[#123243] rounded-t-full py-4 px-6 w-full lg:w-[690px] z-0 mx-2">
+          <div className="flex justify-center flex-wrap gap-x-1 sm:gap-x-6 gap-y-1 sm:gap-y-2 text-white text-xs lg:text-md pb-6">
             {categories.map((cat, index) => (
               <div key={cat} className="flex items-center gap-1 sm:gap-2">
                 <button
@@ -83,7 +83,7 @@ export default function SearchBar() {
         </div>
 
         {/* ⚪ Search Bar */}
-        <div className="w-full h-[45px] sm:h-[55px] mt-[-24px] bg-white border border-red-700 rounded-full flex overflow-hidden items-stretch z-10 relative shadow-sm text-xs">
+        <div className="w-full lg:w-[850px] h-[45px] sm:h-[50px] mt-[-24px] bg-white border border-red-700 rounded-full flex overflow-hidden items-stretch z-10 relative shadow-sm text-xs">
           {/* 📍 Location */}
           <div className="flex items-center gap-1 px-3 py-2 border-r border-gray-300 flex-grow md:flex-grow-0">
             <MapPin className="text-gray-500 w-4 h-4" />

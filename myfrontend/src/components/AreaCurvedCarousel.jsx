@@ -79,7 +79,7 @@ export default function AreaCurvedCarousel() {
   }, []);
 
   return (
-    <div className="w-full bg-white relative overflow-hidden">
+    <div className="w-full bg-white relative overflow-hidden top-[-80px]">
       <div className="relative w-full z-10 py-[50px] overflow-visible">
         {/* Top Oval */}
         <div
@@ -96,7 +96,7 @@ export default function AreaCurvedCarousel() {
         />
 
         {/* Dropdown & Title */}
-        <div className="absolute top-[50px] left-1/2 transform -translate-x-1/2 z-[9999] w-full flex flex-col items-center justify-center">
+        <div className="absolute top-[50px] bottom-[80] left-1/2 transform -translate-x-1/2 z-[99] w-full flex flex-col items-center justify-center">
           <div className="relative flex items-center gap-2 cursor-pointer" onClick={() => setShowDropdown(!showDropdown)}>
             <h2 className="text-3xl font-bold text-gray-800 border-b-4 border-red-600 pb-1 mb-2">
               Areawise Auctions
@@ -126,7 +126,7 @@ export default function AreaCurvedCarousel() {
           className="absolute left-1/2 transform -translate-x-1/2 w-[150vw] z-30 pointer-events-none pb-1"
           style={{
             bottom: "-390px",
-            height: "590px",
+            height: "570px",
             backgroundColor: "#ffffff",
             borderTopLeftRadius: "100%",
             borderTopRightRadius: "100%"
@@ -150,7 +150,7 @@ export default function AreaCurvedCarousel() {
           {images.map((src, index) => (
             <div
               key={index}
-              className="group shrink-0 w-[30vw] sm:w-[22vw] h-[60vh] sm:h-[90vh] rounded-3xl overflow-hidden relative transition-transform duration-300 z-20"
+              className="group shrink-0 w-[35vw] sm:w-[22vw] h-[83vh] sm:h-[90vh] rounded-3xl overflow-hidden relative transition-transform duration-300 z-20 "
             >
               <img
                 src={src}
@@ -172,14 +172,14 @@ export default function AreaCurvedCarousel() {
               </div>
               {/* Hover Overlay */}
               <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition duration-300 flex flex-col justify-end text-white rounded-3xl">
-                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-end items-center text-center sm:text-left px-1 sm:px-14 pb-6 sm:pb-8 py-10 gap-2 sm:gap-0">
-                  <div className="absolute bottom-40">
+                <div className="flex flex-col lg:flex-row lg:justify-between lg:items-end items-center text-center sm:text-left px-1 sm:px-14 pb-6 sm:pb-8 py-10 gap-2 sm:gap-0">
+                  <div className="absolute  bottom-40 sm:bottom-44 py-3">
                     <p className="text-base sm:text-lg md:text-xl font-semibold">Image Title</p>
                     <p className="text-xs sm:text-sm opacity-80">2-word Text</p>
                   </div>
                   <button
                     onClick={() => navigate('/area_auction')}
-                    className="absolute bottom-40 sm:bottom-44 right-[0] sm:right-10 text-white text-2xl font-bold p-2 hover:scale-110 transition"
+                    className="absolute bottom-40 sm:bottom-44 right-[0] lg:right-10 text-white text-2xl font-bold p-2 hover:scale-110 transition"
                   >
                     <ArrowRight className="w-6 h-6" />
                   </button>
