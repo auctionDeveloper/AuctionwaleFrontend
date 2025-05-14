@@ -1,7 +1,23 @@
-/* BankAuctionPage.css */
 
-/* Global Styles for the Map Component */
-.map-container {
+
+/* Positioning of state buttons */
+.state {
+  display: flex;
+  align-items: center;
+  position: absolute; /* Absolute positioning for each state */
+  font-size: 1rem;
+  z-index: 10; /* Ensures the name stays above the red dot */
+}
+
+.state svg {
+  font-size: 1.2rem;
+  color: red;
+  margin-right: 8px;
+}
+
+/* Desktop Styles */
+@media (min-width: 1024px) {
+  .map-container {
   position: relative;
   width: 100%;
   height: 100%;
@@ -10,118 +26,103 @@
   justify-content: center;
   align-items: center;
 }
-
 .responsive-map {
   position: relative;
-  width: 100%; /* Adjust this width as needed */
-  height: 100%;
-  object-fit: cfil;
+  width: 80%; /* Adjust this width as needed */
+  height: auto;
+  object-fit: contain;
 }
-
-.state-position {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+.state{
+  font-size: 16px;
 }
-
-.state {
-  display: flex;
-  align-items: center;
-  position: absolute; /* Absolute positioning for each state */
-  font-size: 0.9rem;
-}
-
-.state-name {
-  font-size: 14px;
-  font-weight: bold;
-  color: red;  /* State name color in red */
-  display: flex;
-  align-items: center;
-  z-index: 2;  /* Ensures the name stays above the red dot */
-}
-
-/* Media Queries for Responsive Design */
-
-/* Desktop */
-@media (min-width: 1024px) {
   .jammu {
-    top: 25%;  /* Adjust the top position */
-    left: 35%;  /* Adjust the left position */
-    font-size: 1rem;
+    top: 10%; /* Adjust the top position */
+    left: 40%; /* Adjust the left position */
   }
 
   .punjab {
     top: 20%;
-    left: 40%;
-    font-size: 1rem;
+    left: 50%;
   }
-
-  /* Add more states here */
 }
 
-/* Tablet */
+/* Tablet Styles */
 @media (max-width: 1023px) and (min-width: 768px) {
+    .map-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.responsive-map {
+  position: relative;
+  width: 80%; /* Adjust this width as needed */
+  height: auto;
+  object-fit: contain;
+}
   .jammu {
-    top: 30%;
-    left: 35%;
-    font-size: 0.8rem;
-  }
-
-  .punjab {
-    top: 25%;
+    top: 11%;
     left: 40%;
-    font-size: 0.8rem;
-  }
-}
-
-/* Mobile */
-@media (max-width: 767px) {
-  .jammu {
-    top: 40%;  /* Adjust the top position for mobile */
-    left: 30%;
-    font-size: 0.7rem;
   }
 
   .punjab {
-    top: 35%;
-    left: 30%;
-    font-size: 0.7rem;
-  }
-
-  /* You can add more responsive adjustments for other states */
-}
-
-/* Red Dot Size Responsive */
-.state svg {
-  font-size: 1.2rem;
-  transition: font-size 0.3s ease;
-}
-
-@media (max-width: 1023px) {
-  .state svg {
-    font-size: 1rem;
+    top: 30%;
+    left: 55%;
   }
 }
 
+/* Mobile Styles */
 @media (max-width: 767px) {
-  .state svg {
-    font-size: 0.8rem;
+  .map-container {
+  position: relative;
+  width: 100%;
+  height: 100vh; /* Full height of viewport */
+  max-width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+.responsive-map {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  object-fit: cover; /* Ensure it covers the container */
+}
+.state{
+  font-size: 14px;
+}
+  .jammu {
+    top: 13%;
+    left: 33%;
+  }
+
+  .punjab {
+    top: 40%;
+    left: 50%;
   }
 }
+
+
+
+
+
 
 /* Popup Styling */
 .popup {
   position: absolute;
   top: 50%;
   right: 10px;
-  width: 250px; /* Adjust this width */
-  height: auto;
+  width: 250px;
   background-color: white;
   border-left: 2px solid #ccc;
   box-shadow: -2px 0 5px rgba(0, 0, 0, 0.3);
-  z-index: 10;
+  z-index: 20;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -146,14 +147,4 @@
 
 .close-button:hover {
   background-color: darkred;
-}
-
-.popup h2 {
-  font-size: 1.2rem;
-  margin-bottom: 20px;
-}
-
-.popup p {
-  font-size: 1rem;
-  color: #333;
 }

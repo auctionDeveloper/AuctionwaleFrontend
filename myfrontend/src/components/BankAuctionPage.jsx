@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import INDIA from '../assets/INDIA.svg';  // Path to your India map SVG
+import INDIA from '../assets/mapindia.png';  // Path to your India map image
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import './BankAuctionPage.css';  // Import the CSS file
 
@@ -19,7 +19,12 @@ export default function BankAuctionPage() {
   };
 
   return (
-    <div className="map-container">
+   <div className='flex flex-col'>
+    <div className='flex flex-col items-center justify-center my-5'>
+      <h1 className='font-extrabold text-2xl'>Bank Auction</h1>
+      <p>Explore</p>
+    </div>
+     <div className="map-container">
       {/* Image of India Map */}
       <img 
         src={INDIA}
@@ -29,10 +34,10 @@ export default function BankAuctionPage() {
 
       {/* Jammu & Kashmir - Button with CSS class for positioning */}
       <button 
-        className="state jammu font-extrabold"
+        className="state jammu font-bold"
         onClick={() => handleStateClick('Jammu & Kashmir')}
       >
-        <FiberManualRecordIcon style={{ fontSize: '1.2rem', color: 'red', marginRight: '8px' }} />
+        <FiberManualRecordIcon />
         Jammu & Kashmir
       </button>
 
@@ -41,7 +46,7 @@ export default function BankAuctionPage() {
         className="state punjab font-extrabold"
         onClick={() => handleStateClick('Punjab')}
       >
-        <FiberManualRecordIcon style={{color: 'red', marginRight: '8px' }} />
+        <FiberManualRecordIcon />
         Punjab
       </button>
 
@@ -58,5 +63,6 @@ export default function BankAuctionPage() {
         </div>
       )}
     </div>
+   </div>
   );
 }
