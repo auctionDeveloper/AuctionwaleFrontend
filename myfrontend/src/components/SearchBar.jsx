@@ -7,8 +7,8 @@ const categories = [
   " Commercial  |",
   " Industrial  |",
   " Land  |",
-  " Plant Machinery  |",
-  " Vehicle",
+  " Plant Machinery",
+ 
 ];
 
 const cityLocalities = {
@@ -86,7 +86,7 @@ export default function SearchBar() {
         <div className="w-full lg:w-[850px] h-[45px] sm:h-[50px] mt-[-24px] bg-white border border-red-700 rounded-full flex overflow-hidden items-stretch z-10 relative shadow-sm text-xs">
           {/* 📍 Location */}
           <div className="flex items-center gap-1 px-3 py-2 border-r border-gray-300 flex-grow md:flex-grow-0">
-            <MapPin className="text-gray-500 w-4 h-4" />
+            <MapPin className="text-gray-500 w-4 h-3 sm:w-4 sm:h-4" />
             <select
               className="bg-transparent outline-none text-xs w-full"
               value={selectedCity}
@@ -97,7 +97,7 @@ export default function SearchBar() {
                 setTypingStarted(false);
               }}
             >
-              <option value="">Location</option>
+              <option value="" disabled>Location</option>
               {cities.map((city) => (
                 <option key={city} value={city}>
                   {city}
@@ -127,7 +127,7 @@ export default function SearchBar() {
               value={auctionType}
               onChange={(e) => setAuctionType(e.target.value)}
             >
-              <option value="">Auction Type</option>
+              <option value="" disabled>Auction Type</option>
               <option value="Bank Auction">Bank Auction</option>
               <option value="Govt Auction">Govt Auction</option>
             </select>
@@ -141,7 +141,7 @@ export default function SearchBar() {
               value={budget}
               onChange={(e) => setBudget(e.target.value)}
             >
-              <option value="">Budget</option>
+              <option value="" disabled>Budget</option>
               <option value="0 - 50 L">0 - 50 L</option>
               <option value="50 L - 1 Cr">50 L - 1 Cr</option>
               <option value="1 Cr+">1 Cr+</option>

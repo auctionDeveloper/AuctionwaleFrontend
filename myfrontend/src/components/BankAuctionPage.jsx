@@ -1,23 +1,43 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import INDIA from '../assets/INDIA.svg';  // Path to your India map image
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import './BankAuctionPage.css';  // Import the CSS file
 import { MapPin, Coins, Search } from "lucide-react";
+import {useNavigate} from 'react-router-dom'
 
 export default function BankAuctionPage() {
   const [showPopup, setShowPopup] = useState(false);
   const [selectedState, setSelectedState] = useState('');
+    const [data, setData] = useState([]);
+  const [banksForState, setBanksForState] = useState([]);
 
-  // Function to handle button click and show popup
+    const navigate = useNavigate();
+  useEffect(() => {
+    fetch('/propertyData.json')
+      .then((res) => res.json())
+      .then((json) => setData(json))
+      .catch((err) => console.error("Failed to load data", err));
+  }, []);
+
   const handleStateClick = (stateName) => {
     setSelectedState(stateName);
+    const filtered = data.filter((item) => item.state.toLowerCase() === stateName.toLowerCase());
+    const uniqueBanks = Array.from(
+      new Map(filtered.map(bank => [bank.bankName, bank])).values()
+    );
+    setBanksForState(uniqueBanks);
     setShowPopup(true);
   };
 
-  // Function to close popup
   const closePopup = () => {
     setShowPopup(false);
+    setBanksForState([]);
   };
+
+  const handleBankClick = (bankName) => {
+    navigate(`/search_result_page?state=${encodeURIComponent(selectedState)}&bank=${encodeURIComponent(bankName)}`);
+  };
+
 
   return (
    <div className='flex flex-col bg-[#7E7E7E]'>
@@ -290,16 +310,36 @@ Kerala
       </button>
       {/* Add more states here */}
 
-      {/* Popup for showing more details */}
-      {showPopup && (
-        <div className="popup">
-          <div className="popup-content">
-            <button onClick={closePopup} className="close-button">Close</button>
-            <h2>{selectedState} Details</h2>
-            <p>Information about {selectedState}.</p>
+
+        {/* Popup */}
+        {showPopup && (
+          <div className="popup">
+            <div className="popup-content">
+              <button onClick={closePopup} className="close-button">Close</button>
+              <h2 className="text-xl font-bold mb-3">{selectedState} Banks</h2>
+              {banksForState.length === 0 ? (
+                <p>No banks found for this state.</p>
+              ) : (
+                <div className="flex flex-col gap-3">
+                  {banksForState.map((bank, idx) => (
+                    <div
+                      key={idx}
+                      onClick={() => handleBankClick(bank.bankName)}
+                      className="cursor-pointer flex items-center gap-3 p-2 border rounded hover:bg-gray-100 transition"
+                    >
+                      <img
+                        src={bank.bankLogo}
+                        alt={bank.bankName}
+                        className="w-10 h-10 rounded object-contain"
+                      />
+                      <span className="font-medium text-gray-800">{bank.bankName}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
-        </div>
-      )}
+        )}
     </div>
    </div>
   );

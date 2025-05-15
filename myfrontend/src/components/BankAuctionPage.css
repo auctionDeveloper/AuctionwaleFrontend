@@ -746,35 +746,35 @@
 
 /* Popup Styling */
 .popup {
-  position: absolute;
-  top: 50%;
-  right: 10px;
-  width: 250px;
-  background-color: white;
-  border-left: 2px solid #ccc;
-  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.3);
-  z-index: 20;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
   padding: 20px;
-  transform: translateY(-50%); /* Center the popup vertically */
+  border-radius: 8px;
+  z-index: 999;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  width: 90%;
+  max-width: 400px;
 }
 
 .popup-content {
   display: flex;
   flex-direction: column;
-  align-items: center;
 }
 
 .close-button {
-  background-color: red;
+  align-self: flex-end;
+  background: #930000;
   color: white;
-  padding: 10px;
+  padding: 5px 10px;
   border: none;
-  border-radius: 5px;
+  font-weight: bold;
   cursor: pointer;
+  border-radius: 4px;
 }
+
 
 .close-button:hover {
   background-color: darkred;

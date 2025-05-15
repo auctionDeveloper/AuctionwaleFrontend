@@ -7,11 +7,12 @@ import Expert_Advice from "../pages/Expert_Advice";
 import Features from "../pages/Features";
 import About from "../pages/About";
 import FAQs from "../pages/FAQs";
-import SearchPage from "../pages/SearchPage";
 import HeartWishlistButton from "../components/HeartWishlistButton";
 import HeartWishlist from "../pages/HeartWishlist";
 import BankAuctionPage from "../components/BankAuctionPage";
 import View_Auction from "../components/View_Auction";
+import DetailsPage from "../pages/DetailsPage";
+import SearchResultPage from "../pages/SearchResultPage";
 
 
 export default function AppRoutes() {
@@ -27,8 +28,9 @@ export default function AppRoutes() {
       <Route path="/expert_advice" element={<Expert_Advice/>} />
       <Route path="/features" element={<Features/>} />
       <Route path="/FAQ" element={<FAQs/>} />
-      <Route path="/search" element={<SearchPage/>}/>
+      <Route path="/search_result_page" element={<SearchResultPage/>}/>
       <Route path="/heartwishlist" element={<HeartWishlist />} />
+      <Route  path='/detailspage' element={<DetailsPage/>} />
 
     </Routes>
   );
