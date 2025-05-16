@@ -47,7 +47,7 @@ export default function View_Auction() {
             className="focus:outline-none"
             onChange={(e) => setBudgetFilter(e.target.value)}
           >
-            <option value="" disabled selected className="text-gray-300">Budget</option>
+            <option value="" disabled selected>Budget</option>
             <option value="5000000">Up to ₹50 Lakh</option>
             <option value="10000000">Up to ₹1 Crore</option>
             <option value="20000000">Up to ₹2 Crore</option>

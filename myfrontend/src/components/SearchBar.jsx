@@ -2,24 +2,13 @@ import { useState, useEffect } from "react";
 import { MapPin, User, Coins, Search } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-const categories = [
-  "Residential  |",
-  " Commercial  |",
-  " Industrial  |",
-  " Land  |",
-  " Plant Machinery",
- 
-];
-
-const cityLocalities = {
-  Mumbai: ["Andheri", "Bandra", "Juhu", "Worli", "Chembur", "Malabar Hill", "Powai", "Versova", "Colaba"],
-  Pune: ["Kothrud", "Baner", "Viman Nagar", "Hadapsar", "Kharadi", "Wagholi"],
-  Hyderabad: ["Banjara Hills", "Madhapur", "Gachibowli", "Secunderabad"],
-  Chennai: ["T Nagar", "Anna Nagar", "Adyar", "Velachery"],
-  Delhi: ["Dwarka", "Karol Bagh", "Lajpat Nagar", "Rohini", "Connaught Place"],
-};
-
 export default function SearchBar() {
+  const [propertyData, setPropertyData] = useState([]);
+  const [cities, setCities] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [budgets, setBudgets] = useState([]);
+  const [localities, setLocalities] = useState([]);
+
   const [selectedCategory, setSelectedCategory] = useState("Residential");
   const [selectedCity, setSelectedCity] = useState("");
   const [localityIndex, setLocalityIndex] = useState(0);
@@ -30,19 +19,63 @@ export default function SearchBar() {
   const [budget, setBudget] = useState("");
 
   const navigate = useNavigate();
-  const cities = Object.keys(cityLocalities);
+
+  useEffect(() => {
+    fetch("/propertyData.json") // Replace with your actual API
+      .then((res) => res.json())
+      .then((data) => {
+        setPropertyData(data);
+
+        const citySet = new Set();
+        const categorySet = new Set();
+        const budgetSet = new Set();
+
+        const parsedBudgets = [];
+
+        data.forEach((item) => {
+          if (item.location) citySet.add(item.location);
+          if (item.category) categorySet.add(item.category);
+
+          const price = parseInt(item.bankPrice.replace(/[^0-9]/g, ""));
+          if (!isNaN(price)) parsedBudgets.push(price);
+        });
+
+        const mappedBudgets = parsedBudgets.map((price) => {
+          if (price <= 5000000) return "0 - 50 L";
+          if (price <= 10000000) return "50 L - 1 Cr";
+          return "1 Cr+";
+        });
+
+        setCities(Array.from(citySet));
+        setCategories(Array.from(categorySet));
+        setBudgets([...new Set(mappedBudgets)]);
+      });
+  }, []);
 
   useEffect(() => {
     if (!selectedCity || typingStarted) return;
 
-    const localities = cityLocalities[selectedCity];
+    const localitiesSet = new Set();
+    propertyData.forEach((item) => {
+      if (item.location === selectedCity && item.propertyAddress) {
+        const parts = item.propertyAddress.split(",");
+        const locality = parts.length > 1 ? parts[1].trim() : parts[0].trim();
+        if (locality) localitiesSet.add(locality);
+      }
+    });
+
+    const localitiesArray = Array.from(localitiesSet);
+    setLocalities(localitiesArray);
+
     const interval = setInterval(() => {
-      setTypewriter(localities[localityIndex]);
-      setLocalityIndex((prev) => (prev + 1 >= localities.length ? 0 : prev + 1));
+      setTypewriter(localitiesArray[localityIndex] || "");
+      setLocalityIndex((prev) =>
+        prev + 1 >= localitiesArray.length ? 0 : prev + 1
+      );
     }, 1200);
 
     return () => clearInterval(interval);
-  }, [selectedCity, localityIndex, typingStarted]);
+  }, [selectedCity, localityIndex, typingStarted, propertyData]);
 
   const handleInputChange = (e) => {
     setTypedSearch(e.target.value);
@@ -51,7 +84,7 @@ export default function SearchBar() {
 
   const handleSearchClick = () => {
     const query = new URLSearchParams({
-      category: selectedCategory.replace("|", "").trim(),
+      category: selectedCategory,
       city: selectedCity,
       keyword: typedSearch || typewriter,
       auctionType,
@@ -70,9 +103,11 @@ export default function SearchBar() {
               <div key={cat} className="flex items-center gap-1 sm:gap-2">
                 <button
                   onClick={() => setSelectedCategory(cat)}
-                  className={`${selectedCategory === cat ? "font-semibold underline" : ""}`}
+                  className={`${
+                    selectedCategory === cat ? "font-semibold underline" : ""
+                  }`}
                 >
-                  {cat.replace("|", "").trim()}
+                  {cat}
                 </button>
                 {index !== categories.length - 1 && (
                   <span className="text-white leading-none pb-1">|</span>
@@ -97,7 +132,9 @@ export default function SearchBar() {
                 setTypingStarted(false);
               }}
             >
-              <option value="" disabled>Location</option>
+              <option value="" disabled>
+                Location
+              </option>
               {cities.map((city) => (
                 <option key={city} value={city}>
                   {city}
@@ -127,9 +164,14 @@ export default function SearchBar() {
               value={auctionType}
               onChange={(e) => setAuctionType(e.target.value)}
             >
-              <option value="" disabled>Auction Type</option>
-              <option value="Bank Auction">Bank Auction</option>
-              <option value="Govt Auction">Govt Auction</option>
+              <option value="" disabled>
+                Auction Type
+              </option>
+              {categories.map((cat) => (
+                <option key={cat} value={cat}>
+                  {cat}
+                </option>
+              ))}
             </select>
           </div>
 
@@ -141,10 +183,14 @@ export default function SearchBar() {
               value={budget}
               onChange={(e) => setBudget(e.target.value)}
             >
-              <option value="" disabled>Budget</option>
-              <option value="0 - 50 L">0 - 50 L</option>
-              <option value="50 L - 1 Cr">50 L - 1 Cr</option>
-              <option value="1 Cr+">1 Cr+</option>
+              <option value="" disabled>
+                Budget
+              </option>
+              {budgets.map((b) => (
+                <option key={b} value={b}>
+                  {b}
+                </option>
+              ))}
             </select>
           </div>
 
