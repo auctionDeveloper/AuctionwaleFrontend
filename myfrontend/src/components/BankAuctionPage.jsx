@@ -5,6 +5,17 @@ import './BankAuctionPage.css';  // Import the CSS file
 import { MapPin, Coins, Search } from "lucide-react";
 import {useNavigate} from 'react-router-dom'
 
+import SBI from '../assets/SBI.svg';
+import BOB from '../assets/BOB.svg';
+import KOTAK from '../assets/Kotak.svg';
+import CANARA from '../assets/Canara.svg';
+import UNION from '../assets/union.svg';
+import PNB from '../assets/Punjab.svg';
+import AXIS from '../assets/axis.svg';
+import ICICI from '../assets/icici.svg';
+import HDFC from '../assets/hdfc.svg';
+import INDUSIND from '../assets/industan.svg';
+
 export default function BankAuctionPage() {
   const [showPopup, setShowPopup] = useState(false);
   const [selectedState, setSelectedState] = useState('');
@@ -44,7 +55,30 @@ export default function BankAuctionPage() {
     <div className='flex flex-col items-center justify-center mt-5'>
       <h1 className='font-bold text-4xl text-white pb-2'>Bank Auction</h1>
       <div className="flex items-center gap-1 px-3 py-2 flex-grow-0"><MapPin className="text-orange-700 w-4 h-4 font-extrabolod" /><p className='text-white'>Explore auctions through Map</p></div>
+      
+  {/* Responsive logo layout */}
+  <div className='logodiv flex flex-col lg:flex-row gap-4 mt-4'>
+    {/* Left column on desktop, top row on mobile */}
+    <div className='logofirstdiv flex justify-center gap-4 lg:flex-col'>
+      <img src={SBI} alt="SBI" className="w-10 h-10 sm:w-16 sm:h-16 object-contain" />
+      <img src={BOB} alt="BOB" className="w-10 h-10 sm:w-16 sm:h-16 object-contain" />
+      <img src={KOTAK} alt="KOTAK" className="w-10 h-10 sm:w-16 sm:h-16 object-contain" />
+      <img src={CANARA} alt="CANARA" className="w-10 h-10 sm:w-16 sm:h-16 object-contain" />
+      <img src={UNION} alt="UNION" className="w-10 h-10 sm:w-16 sm:h-16 object-contain" />
     </div>
+
+    {/* Right column on desktop, bottom row on mobile */}
+    <div className='logoseconddiv flex justify-center gap-4 lg:flex-col'>
+      <img src={PNB} alt="PNB" className="w-10 h-10 sm:w-16 sm:h-16 object-contain" />
+      <img src={AXIS} alt="AXIS" className="w-10 h-10 sm:w-16 sm:h-16 object-contain" />
+      <img src={ICICI} alt="ICICI" className="w-10 h-10 sm:w-16 sm:h-16 object-contain" />
+      <img src={HDFC} alt="HDFC" className="w-10 h-10 sm:w-16 sm:h-16 object-contain" />
+      <img src={INDUSIND} alt="INDUSIND" className="w-10 h-10 sm:w-16 sm:h-16 object-contain" />
+    </div>
+  </div>
+
+    </div>
+
      <div className="map-container">
       
       {/* Image of India Map */}
@@ -53,6 +87,8 @@ export default function BankAuctionPage() {
         alt="India Map"
         className="responsive-map"
       />
+
+
 
       {/* Jammu & Kashmir - Button with CSS class for positioning */}
       <button 

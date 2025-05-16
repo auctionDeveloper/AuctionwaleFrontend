@@ -10,6 +10,7 @@ export default function SearchResultPage({ category, availability, location, bud
   const queryBank = searchParams.get('bank');
   const queryLocation = searchParams.get('location');
 
+  
 
   useEffect(() => {
     fetch('/propertyData.json')

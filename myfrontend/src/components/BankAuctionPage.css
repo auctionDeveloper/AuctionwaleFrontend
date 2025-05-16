@@ -14,6 +14,12 @@
 
 /* Desktop Styles */
 @media (min-width: 1024px) {
+    .logodiv{
+    position: relative;
+    margin-top: 120px;
+    margin-right: -830px;
+  
+  }
   .map-container {
   position: relative;
   width: 100%;
@@ -22,6 +28,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: -450px;
+ 
 }
 .responsive-map {
   position: relative;
@@ -158,6 +166,7 @@
 
 /* Tablet Styles */
 @media (max-width: 1023px) and (min-width: 768px) {
+   
     .map-container {
   position: relative;
   width: 100%;
@@ -166,6 +175,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
 }
 .responsive-map {
   position: relative;
@@ -302,6 +312,7 @@
 
 /* Mobile Styles */
 @media (max-width: 767px) {
+  
   .map-container {
     position: relative;
     width: 100%;
@@ -310,6 +321,7 @@
     justify-content: center;
     align-items: center;
     overflow: hidden;
+    
   }
 
   .responsive-map {
@@ -456,6 +468,7 @@
     justify-content: center;
     align-items: center;
     overflow: hidden;
+    margin-top: -100px;
   }
 
   .responsive-map {
@@ -603,6 +616,7 @@
     justify-content: center;
     align-items: center;
     overflow: hidden;
+    margin-top: -10px;
   }
 
   .responsive-map {
