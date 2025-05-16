@@ -54,7 +54,7 @@ export default function BankAuctionPage() {
    <div className='flex flex-col bg-[#7E7E7E]'>
     <div className='flex flex-col items-center justify-center mt-5'>
       <h1 className='font-bold text-4xl text-white pb-2'>Bank Auction</h1>
-      <div className="flex items-center gap-1 px-3 py-2 flex-grow-0"><MapPin className="text-orange-700 w-4 h-4 font-extrabolod" /><p className='text-white'>Explore auctions through Map</p></div>
+      <div className="flex items-center gap-1 px-3 py-2 flex-grow-0"><MapPin className="text-gray-300 w-6 h-6 font-extrabolod" /><p className='text-white'>Explore auctions through Map</p></div>
       
   {/* Responsive logo layout */}
   <div className='logodiv flex flex-col lg:flex-row gap-4 mt-4'>

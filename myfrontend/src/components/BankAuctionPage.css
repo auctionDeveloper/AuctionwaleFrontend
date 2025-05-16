@@ -16,8 +16,8 @@
 @media (min-width: 1024px) {
     .logodiv{
     position: relative;
-    margin-top: 120px;
-    margin-right: -830px;
+    margin-top: 80px;
+    margin-right: -870px;
   
   }
   .map-container {
@@ -166,6 +166,7 @@
 
 /* Tablet Styles */
 @media (max-width: 1023px) and (min-width: 768px) {
+  
    
     .map-container {
   position: relative;
