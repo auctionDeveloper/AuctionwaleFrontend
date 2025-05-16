@@ -158,6 +158,23 @@ const logout = () => {
     setShowMenu(false);
   };
 
+  const toggleFeaturesMenu = (event) => {
+  setShowFeatures((prev) => {
+    const newState = !prev;
+
+    if (newState) {
+      // Calculate and set menu position dynamically relative to the button
+      const rect = featuresButtonRef.current.getBoundingClientRect();
+      setFeaturesPosition({
+        top: rect.bottom + window.scrollY,
+        left: rect.left + window.scrollX,
+      });
+    }
+    return newState;
+  });
+};
+
+
   return (
     <>
       <div className="sticky top-0 z-[999] bg-white shadow-md overflow-hidden">
@@ -273,12 +290,12 @@ const logout = () => {
               </div>
               {mobileFeatures && (
                 <ul className="ml-4 text-sm flex flex-col gap-2 mt-1">
-                  <li>Photo & Videos</li>
-                  <li>TSR</li>
-                  <li>Valuation Report</li>
-                  <li>Public & Sales Notice</li>
-                  <li>Bank Document</li>
-                  <li>Comparison Chart</li>
+                  <li><Link to='/photovideos'>Photo & Videos</Link></li>
+                  <li><Link to='/tsr'>TSR</Link></li>
+                  <li><Link to='/valuation_report'>Valuation Report</Link></li>
+                  <li><Link to='/public_sales_notice'>Public & Sales Notice</Link></li>
+                  <li><Link to='/bank_doc'>Bank Document</Link></li>
+                  <li><Link to='/comparison_chart'>Comparison Chart</Link></li>
                 </ul>
               )}
 
@@ -297,12 +314,12 @@ const logout = () => {
           style={{ top: `${featuresPosition.top}px`, left: `${featuresPosition.left}px` }}
         >
           <ul className="text-sm">
-            <li className="px-4 py-2 hover:bg-gray-100">Photo & Videos</li>
-            <li className="px-4 py-2 hover:bg-gray-100">TSR</li>
-            <li className="px-4 py-2 hover:bg-gray-100">Valuation Report</li>
-            <li className="px-4 py-2 hover:bg-gray-100">Public & Sales Notice</li>
-            <li className="px-4 py-2 hover:bg-gray-100">Bank Document</li>
-            <li className="px-4 py-2 hover:bg-gray-100">Comparison Chart</li>
+            <li className="px-4 py-2 hover:bg-gray-100"><Link to='/photovideos'>Photo & Videos</Link></li>
+            <li className="px-4 py-2 hover:bg-gray-100"><Link to='/tsr'>TSR</Link></li>
+            <li className="px-4 py-2 hover:bg-gray-100"><Link to='/valuation_report'>Valuation Report</Link></li>
+            <li className="px-4 py-2 hover:bg-gray-100"><Link to='/public_sales_notice'>Public & Sales Notice</Link></li>
+            <li className="px-4 py-2 hover:bg-gray-100"><Link to='/bank_doc'>Bank Document</Link></li>
+            <li className="px-4 py-2 hover:bg-gray-100"><Link to='/comparison_chart'>Comparison Chart</Link></li>
           </ul>
         </div>
       )}
