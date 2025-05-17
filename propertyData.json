@@ -178,5 +178,23 @@
     "areaSqFt": "7,000 sqft",
     "auctionDate": "26th May 2025",
     "propertyStatus": "Sold"
+  },
+    {
+    "id": 10,
+    "title": "Light Machinery Auction in Mumbai",
+    "image": "https://example.com/image11.jpg",
+    "location": "Mumbai",
+    "area": "Kurla",
+    "state": "Maharashtra",
+    "category": "Plant & Machinery",
+    "bankPrice": "₹ 2.80 Crore",
+    "marketPrice": "₹ 3.30 Crore",
+    "borrowerName": "M/s. Bharat Foundries",
+    "bankName": "Union Bank",
+    "bankLogo": "https://example.com/image1.jpg",
+    "propertyAddress": "Survey No. 108, Kurla, Mumbai",
+    "areaSqFt": "7,000 sqft",
+    "auctionDate": "26th May 2025",
+    "propertyStatus": "Sold"
   }
 ]
