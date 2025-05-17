@@ -11,6 +11,7 @@ export default function SearchResultPage({ category, availability, location, bud
   const queryState = searchParams.get('state');
   const queryBank = searchParams.get('bank');
   const queryLocation = searchParams.get('location');
+  
 
   
 

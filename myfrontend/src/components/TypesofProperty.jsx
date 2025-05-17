@@ -37,23 +37,19 @@ export default function TypesofProperty() {
   };
 
   return (
-    <div className="relative bg-[#062c3f] py-10 px-4 text-white text-center">
+    <div className="relative bg-[#062c3f] py-10 px-4 text-white text-center  ">
       <h2 className="text-2xl md:text-3xl font-bold pb-2">Types of properties</h2>
-      <p className="text-sm mt-1 text-gray-300">
-        Save Your pocket by looking <span className="font-semibold text-white">budgetwise</span> projects.
-      </p>
-
-      <div className="mt-8 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6 justify-items-center pb-2">
+      <div className="mt-8 grid grid-cols-3 sm:grid-cols-3 md:grid-cols-5 gap-6 justify-center items-center sm:justify-items-center pb-2">
         {propertyTypes.map((type) => (
           <div
             key={type.title}
-            className="flex flex-col items-center cursor-pointer hover:scale-105 transition"
+            className="flex flex-col items-center cursor-pointer "
             onClick={() => handleClick(type.title)}
           >
             <img
               src={type.image}
               alt={type.title}
-              className="w-32 h-32 object-cover rounded-md shadow-md"
+              className="w-32 h-32 object-cover rounded-md shadow-md hover:scale-105"
             />
             <p className="mt-2 text-sm font-medium">{type.title}</p>
           </div>
