@@ -1,26 +1,31 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import Residential from '../assets/residential.png'
+import Commercial from '../assets/commercial.png'
+import Industrial from '../assets/industrial.png'
+import Agriculture from '../assets/agriculture.png'
+import PhotoMachinery from '../assets/plant&machinery.png'
 
 const propertyTypes = [
   {
     title: 'Industrial',
-    image: 'https://via.placeholder.com/150?text=Industrial',
+    image: Industrial,
   },
   {
     title: 'Residential',
-    image: 'https://via.placeholder.com/150?text=Residential',
+    image: Residential,
   },
   {
     title: 'Commercial',
-    image: 'https://via.placeholder.com/150?text=Commercial',
+    image: Commercial,
   },
   {
     title: 'Agricultural',
-    image: 'https://via.placeholder.com/150?text=Agricultural',
+    image: Agriculture,
   },
   {
     title: 'Plant & Machinery',
-    image: 'https://via.placeholder.com/150?text=Others',
+    image: PhotoMachinery,
   },
 ];
 
@@ -32,7 +37,7 @@ export default function TypesofProperty() {
   };
 
   return (
-    <div className="bg-[#062c3f] py-10 px-4 text-white text-center">
+    <div className="relative bg-[#062c3f] py-10 px-4 text-white text-center">
       <h2 className="text-2xl md:text-3xl font-bold pb-2">Types of properties</h2>
       <p className="text-sm mt-1 text-gray-300">
         Save Your pocket by looking <span className="font-semibold text-white">budgetwise</span> projects.

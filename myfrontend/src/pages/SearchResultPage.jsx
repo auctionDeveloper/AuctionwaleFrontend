@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
+
 export default function SearchResultPage({ category, availability, location, budget }) {
   const [data, setData] = useState([]);
   const [searchParams] = useSearchParams();
+ const queryCategory = searchParams.get('category');
 
   // Support fallback from query parameters
   const queryState = searchParams.get('state');
@@ -28,9 +30,32 @@ export default function SearchResultPage({ category, availability, location, bud
     }
     return 0;
   };
+const getCategoryName = (category) => {
+  switch (category) {
+    case "Residential":
+      return "Flats";
+    case "Agricultural":
+      return "Plots";
+    case "Industrial":
+      return "Industrial Properties";
+    case "Commercial":
+      return "Commercial Properties";
+    case "Plant & Machinery":
+      return "Bank Auctions";
+    default:
+      return "Bank Auctions";
+  }
+};
 
   const filtered = data.filter((item) => {
-    const matchCategory = category ? item.category === category : true;
+   
+
+     const matchCategory = category
+  ? item.category === category
+  : queryCategory
+  ? getCategoryName(item.category) === queryCategory
+  : true;
+
     const matchStatus = availability ? item.propertyStatus === availability : true;
 const matchLocation =
   (location || queryLocation)
@@ -46,7 +71,8 @@ const matchLocation =
       ? item.bankName.toLowerCase() === queryBank.toLowerCase()
       : true;
 
- 
+// Category mapping logic
+
 
 
     return (

@@ -1,18 +1,26 @@
 import React from 'react';
+import BankDocument from '../assets/Bank Building.svg'
+import ComparisonChart from '../assets/Combo Chart.svg'
+import AreaReport from '../assets/Commercial.svg'
+import TSR from '../assets/Doodle.svg'
+import ValuationReport from '../assets/Graph Report.svg'
+import VideoPhotos from '../assets/Movies Folder.svg'
+import PublicSalesNotice from '../assets/Report file.svg'
+
 
 const features = [
-  { label: 'Bank Document', icon: '/src/assets/Bank Building.svg' },
-  { label: 'Comparison Chart', icon: '/src/assets/Combo Chart.svg' },
-  { label: 'Area Report', icon: '/src/assets/Commercial.svg' },
-  { label: 'TSR', icon: '/src/assets/Doodle.svg' },
-  { label: 'Valuation Report', icon: '/src/assets/Graph Report.svg' },
-  { label: 'Video & Photos', icon: '/src/assets/Movies Folder.svg' },
-  { label: 'Public & Sales Notice', icon: '/src/assets/Report file.svg' },
+  { label: 'Bank Document', icon: BankDocument },
+  { label: 'Comparison Chart', icon: ComparisonChart },
+  { label: 'Area Report', icon: AreaReport },
+  { label: 'TSR', icon: TSR },
+  { label: 'Valuation Report', icon: ValuationReport },
+  { label: 'Video & Photos', icon: VideoPhotos },
+  { label: 'Public & Sales Notice', icon: PublicSalesNotice  },
 ];
 
 export default function WhyUseAuctionwale() {
   return (
-    <section className="mt-[-95px] px-4 bg-white text-center overflow-hidden z-[999]">
+    <section className=" px-4 bg-white text-center overflow-hidden z-[999]">
       {/* Decorative Heading with Dots */}
       <div className="flex items-center justify-center mb-10 relative mt-[8px]">
         <div className="flex-grow h-px bg-[#0B3448] mr-2 relative text-extrabold">

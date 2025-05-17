@@ -1,34 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useLocation, Link } from "react-router-dom";
 
 const StatePropertyTabs = () => {
-  const mockAPIResponse = {
-    Maharashtra: {
-      "Bank Auctions": ["Kanjurmarg", "Kurla", "Byculla", "Andheri"],
-      "Flats": ["Kurla", "Vasai", "Malabar Hill", "Chembur"],
-      "Plots": ["Kanjurmarg", "Kurla", "Byculla", "Andheri"],
-      "Industrial Properties": ["Kanjurmarg", "Kurla", "Byculla", "Andheri"],
-      "Commercial Properties": ["Kanjurmarg", "Kurla", "Byculla", "Andheri"]
-    },
-    "Madhya Pradesh": {"Bank Auctions": ["Bhopal"], "Flats": ["Indore"], "Plots": ["Jabalpur"], "Industrial Properties": ["Bhopal"], "Commercial Properties": ["Indore"] },
-    Punjab: {},
-    "Andhra Pradesh": {},
-    "Arunachal Pradesh": {},
-    Pune: {},
-    Tamilnadu: {},
-    Bihar: {},
-    UttarPardesh: {},
-    Kashmir: {},
-    Uttarakhand: {},
-    Rajasthan: {},
-    Karnataka: {},
-    Gujarat: {},
-    Goa: {},
-    Jharkhand: {}
-  };
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const stateFromQuery = queryParams.get("state");
 
   const [propertyData, setPropertyData] = useState({});
-  const [activeState, setActiveState] = useState("Maharashtra");
+  const [activeState, setActiveState] = useState(stateFromQuery || "");
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const scrollRef = useRef(null);
 
   const categories = [
@@ -36,15 +17,72 @@ const StatePropertyTabs = () => {
     "Flats",
     "Plots",
     "Industrial Properties",
-    "Commercial Properties"
+    "Commercial Properties",
   ];
 
+  const getCategoryName = (category) => {
+    switch (category) {
+      case "Residential":
+        return "Flats";
+      case "Agricultural":
+        return "Plots";
+      case "Industrial":
+        return "Industrial Properties";
+      case "Commercial":
+        return "Commercial Properties";
+      case "Plant & Machinery":
+        return "Bank Auctions";
+      default:
+        return "Bank Auctions";
+    }
+  };
+
   useEffect(() => {
-    setTimeout(() => {
-      setPropertyData(mockAPIResponse);
-      setLoading(false);
-    }, 300);
-  }, []);
+    async function fetchData() {
+      setLoading(true);
+      setError(null);
+      try {
+        const response = await fetch("/propertyData.json");
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        const flatData = await response.json();
+
+        // Transform flat array into nested state > category > locations format
+        const structuredData = {};
+
+        flatData.forEach((item) => {
+          const state = item.state;
+          const category = getCategoryName(item.category);
+
+          if (!structuredData[state]) {
+            structuredData[state] = {};
+          }
+          if (!structuredData[state][category]) {
+            structuredData[state][category] = [];
+          }
+
+          // Push unique locations only
+          if (!structuredData[state][category].includes(item.location)) {
+            structuredData[state][category].push(item.location);
+          }
+        });
+
+        setPropertyData(structuredData);
+
+        const states = Object.keys(structuredData);
+        if (stateFromQuery && states.includes(stateFromQuery)) {
+          setActiveState(stateFromQuery);
+        } else if (states.length > 0) {
+          setActiveState(states[0]);
+        }
+      } catch (err) {
+        setError(err.message || "Something went wrong");
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchData();
+  }, [stateFromQuery]);
 
   const states = Object.keys(propertyData);
 
@@ -58,7 +96,7 @@ const StatePropertyTabs = () => {
       if (scrolled < distance) {
         container.scrollBy({
           left: direction === "right" ? step : -step,
-          behavior: "auto"
+          behavior: "auto",
         });
         scrolled += step;
         requestAnimationFrame(scrollStep);
@@ -69,12 +107,14 @@ const StatePropertyTabs = () => {
   };
 
   if (loading) return <div className="p-4">Loading data...</div>;
+  if (error) return <div className="p-4 text-red-600">Error: {error}</div>;
+  if (states.length === 0) return <div className="p-4">No data found</div>;
 
   return (
     <div className="w-full px-4 mt-4">
-      {/* 🔺 Scrollable State Tabs */}
+      {/* Scrollable State Tabs */}
       <div className="relative flex items-center border-b pb-2">
-        {/* ⬅ Scroll Left */}
+        {/* Scroll Left */}
         <button
           onClick={() => smoothScroll("left")}
           className="absolute left-0 z-10 px-3 py-1 bg-white text-xl font-bold text-gray-600"
@@ -84,10 +124,7 @@ const StatePropertyTabs = () => {
 
         {/* Scrollable Container */}
         <div className="mx-10 w-full overflow-hidden">
-          <div
-            ref={scrollRef}
-            className="flex gap-6 scroll-smooth hide-scroll"
-          >
+          <div ref={scrollRef} className="flex gap-6 scroll-smooth hide-scroll">
             {states.map((state) => (
               <button
                 key={state}
@@ -100,7 +137,7 @@ const StatePropertyTabs = () => {
                 style={{
                   flex: "0 0 auto",
                   minWidth: window.innerWidth < 768 ? "33.33%" : "14.28%",
-                  textAlign: "center"
+                  textAlign: "center",
                 }}
               >
                 {state}
@@ -109,7 +146,7 @@ const StatePropertyTabs = () => {
           </div>
         </div>
 
-        {/* ➡ Scroll Right */}
+        {/* Scroll Right */}
         <button
           onClick={() => smoothScroll("right")}
           className="absolute right-0 z-10 px-3 py-1 bg-white text-xl font-bold text-gray-600"
@@ -118,14 +155,21 @@ const StatePropertyTabs = () => {
         </button>
       </div>
 
-      {/* 🔻 Property Categories */}
+      {/* Property Categories */}
       <div className="mt-6 grid grid-cols-3 sm:grid-cols-5 gap-6 text-sm">
         {categories.map((cat) => (
           <div key={cat}>
             <h3 className="font-semibold text-gray-800 mb-2">{cat}</h3>
             <ul className="space-y-1 text-gray-700">
-              {(propertyData[activeState]?.[cat] || []).map((location) => (
-                <li key={location}>{location}</li>
+              {(propertyData[activeState]?.[cat] || []).map((location, index) => (
+                <li key={index}>
+                  <Link
+                    to={`/search_result_page?state=${encodeURIComponent(activeState)}&location=${encodeURIComponent(location)}&category=${encodeURIComponent(cat)}`}
+                    className="text-blue-600 hover:underline"
+                  >
+                    {location}
+                  </Link>
+                </li>
               ))}
             </ul>
           </div>

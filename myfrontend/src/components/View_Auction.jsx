@@ -62,12 +62,12 @@ export default function View_Auction() {
       </div>
 
       {/* Category Tabs */}
-      <div className=' flex justify-center items-center gap-2 sm:gap-6 my-4 sm:mt-8'>
+      <div className=' flex justify-center items-center gap-1 sm:gap-6 my-4 sm:mt-8'>
         {categories.map((category) => (
           <button
             key={category}
             onClick={() => setActive(category)}
-            className={`text-xs sm:text-lg p-2 sm:p-8  border rounded shadow-sm
+            className={`text-xs sm:text-lg p-1 sm:p-8  border rounded shadow-sm
               ${active === category ? 'bg-[#0B3448] text-white' : 'bg-white text-black'}`}
           >
             {category}

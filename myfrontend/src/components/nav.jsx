@@ -230,13 +230,14 @@ const logout = () => {
               <li><Link to="/view_auction">View Auction</Link></li>
               <li><Link to="/bank_auction">Bank Auction</Link></li>
               <li><Link to="/area_auction">Area Auction</Link></li>
-              <li><Link to="/expert_advice">Call Expert</Link></li>
+              <li><Link to="/FAQ">FAQs</Link></li>
               <li>
                 <button ref={featuresButtonRef} onClick={handleFeaturesClick} className="inline-flex items-center gap-1">
                   Features <ChevronDown size={16} />
                 </button>
               </li>
-              <li><Link to="/FAQ">FAQs</Link></li>
+              <li><Link to="/expert_advice">Call Expert</Link></li>
+              
             </ul>
 
             <div className="md:hidden flex items-center gap-2 ml-auto order-2">
@@ -281,7 +282,7 @@ const logout = () => {
               <Link to="/view_auction" onClick={toggleSidebar}>View Auction</Link>
               <Link to="/bank_auction" onClick={toggleSidebar}>Bank Auction</Link>
               <Link to="/area_auction" onClick={toggleSidebar}>Area Auction</Link>
-              <Link to="/expert_advice" onClick={toggleSidebar}>Call Expert</Link>
+              <Link to="/FAQ" onClick={toggleSidebar}>FAQs</Link>
 
               {/* Mobile Features Toggle */}
               <div className="flex items-center justify-between cursor-pointer" onClick={() => setMobileFeatures(!mobileFeatures)}>
@@ -298,8 +299,8 @@ const logout = () => {
                   <li><Link to='/comparison_chart'>Comparison Chart</Link></li>
                 </ul>
               )}
-
-              <Link to="/FAQ" onClick={toggleSidebar}>FAQs</Link>
+                <Link to="/expert_advice" onClick={toggleSidebar}>Call Expert</Link>
+              
     
             </div>
           </div>
