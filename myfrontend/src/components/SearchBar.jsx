@@ -115,7 +115,7 @@ const handleSearchClick = () => {
   return (
    <div
   className="relative w-auto px-1 sm:px-4 md:px-8 py-10 flex justify-center bg-white pb-2 overflow-visible"
-  style={{ overflow: "visible", zIndex: 1000 }}
+  style={{ overflow: "visible", zIndex: 10 }}
 >
 
       <div className="w-full max-w-6xl flex flex-col items-center relative text-xs z-20 overflow-visible">
@@ -150,10 +150,10 @@ const handleSearchClick = () => {
           
           {/* City */}
 <div className="flex items-center gap-1 sm:gap-2 px-1 sm:px-3 py-2 border-r border-gray-300">
-  <MapPin className="text-gray-500 w-4 h-4 sm:w-4 sm:h-4" />
+  <MapPin className="text-gray-500 w-4 h-4 min-w-[16px]" />
 
            <select
-  className="bg-transparent outline-none text-xs"
+  className="bg-transparent outline-none text-xs gap-1"
   value={selectedCity}
   onChange={(e) => {
     setSelectedCity(e.target.value);
@@ -186,7 +186,7 @@ const handleSearchClick = () => {
 
           {/* Auction Type */}
           <div className="flex items-center gap-1 px-3 py-2 border-r border-gray-300">
-            <User className="text-gray-500 w-4 h-4" />
+            <User className="text-gray-500 w-4 h-4 min-w-[16px]" />
             <select
               className="bg-transparent outline-none text-xs"
               value={auctionType}
@@ -201,7 +201,7 @@ const handleSearchClick = () => {
 
           {/* Budget */}
           <div className="flex items-center gap-1 px-3 py-2 border-r border-gray-300">
-            <Coins className="text-gray-500 w-4 h-4" />
+            <Coins className="text-gray-500 w-4 h-4 min-w-[16px]" />
             <select
               className="bg-transparent outline-none text-xs"
               value={budget}

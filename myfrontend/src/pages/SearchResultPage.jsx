@@ -11,6 +11,10 @@ export default function SearchResultPage({ category, availability, location, bud
   const queryState = searchParams.get('state');
   const queryBank = searchParams.get('bank');
   const queryLocation = searchParams.get('location');
+  const queryBudget = searchParams.get('budget');
+  const minBudget = parseInt(searchParams.get('minBudget')) || null;
+const maxBudget = parseInt(searchParams.get('maxBudget')) || null;
+
   
 
   
@@ -24,13 +28,21 @@ export default function SearchResultPage({ category, availability, location, bud
 
   // Convert string price to number (₹ 2.10 Crore -> 21000000)
   const parsePrice = (price) => {
-    if (price.includes('Lakh')) {
-      return parseFloat(price.replace(/[₹ ,Lakh]/g, '')) * 100000;
-    } else if (price.includes('Crore')) {
-      return parseFloat(price.replace(/[₹ ,Crore]/g, '')) * 10000000;
-    }
-    return 0;
-  };
+  if (!price) return 0;
+
+  const cleanStr = price.replace(/[₹,]/g, '').trim().toLowerCase();
+
+  if (cleanStr.includes('crore')) {
+    const value = parseFloat(cleanStr.replace('crore', '').trim());
+    return value * 1e7;
+  } else if (cleanStr.includes('lakh')) {
+    const value = parseFloat(cleanStr.replace('lakh', '').trim());
+    return value * 1e5;
+  }
+
+  return parseFloat(cleanStr) || 0;
+};
+
 const getCategoryName = (category) => {
   switch (category) {
     case "Residential":
@@ -71,19 +83,27 @@ const matchLocation =
     const matchQueryBank = queryBank
       ? item.bankName.toLowerCase() === queryBank.toLowerCase()
       : true;
+   ;
+   const matchBudgetRange = (minBudget && maxBudget)
+  ? parsePrice(item.bankPrice) >= minBudget && parsePrice(item.bankPrice) <= maxBudget
+  : true;
+
+
 
 // Category mapping logic
 
 
 
-    return (
-      matchCategory &&
-      matchStatus &&
-      matchLocation &&
-      matchBudget &&
-      matchQueryState &&
-      matchQueryBank
-    );
+return (
+  matchCategory &&
+  matchStatus &&
+  matchLocation &&
+  matchBudget &&
+  matchQueryState &&
+  matchQueryBank &&
+  matchBudgetRange
+);
+
   });
 
   return (

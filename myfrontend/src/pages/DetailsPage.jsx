@@ -9,6 +9,9 @@ import ReserveAmountPopup from '../components/ReserveAmountPopup';
 export default function DetailsPage() {
   const [searchParams] = useSearchParams();
   const id = searchParams.get('id');
+  const location = searchParams.get("location");
+const bankPrice = searchParams.get("bankPrice");
+
   const [property, setProperty] = useState(null);
 
   const [showEnquiry, setShowEnquiry] = useState(false);
@@ -18,12 +21,32 @@ export default function DetailsPage() {
 
 
 
-  useEffect(() => {
-    fetch('/propertyData.json')
-      .then((res) => res.json())
-      .then((data) => setProperty(data[id]))
-      .catch((err) => console.error("Error loading data:", err));
-  }, [id]);
+useEffect(() => {
+  const id = searchParams.get("id");
+  const location = searchParams.get("location");
+  const bankPrice = searchParams.get("bankPrice");
+
+  fetch("/propertyData.json")
+    .then((res) => res.json())
+    .then((data) => {
+      let matched;
+
+      if (id) {
+        matched = data.find((item) => item.id === id);
+      } else if (location && bankPrice) {
+        matched = data.find(
+          (item) =>
+            item.location === location &&
+            item.bankPrice.toString() === bankPrice
+        );
+      }
+
+      setProperty(matched);
+    })
+    .catch((err) => console.error("Error loading data:", err));
+}, [searchParams]);
+
+
 
   if (!property) return <div className="text-center mt-10">Loading...</div>;
 

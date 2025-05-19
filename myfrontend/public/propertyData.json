@@ -2,7 +2,7 @@
   {
     "id": 0,
     "title": "Industrial Plot for Sale in Mysore, Mysuru",
-    "image": "https://example.com/image1.jpg",
+    "image": "https://picsum.photos/id/1015/1000/700",
     "location": "Mysore",
     "area": "Narasimharaja Mohalla",
     "state": "Karnataka",
@@ -20,7 +20,7 @@
   {
     "id": 1,
     "title": "Residential Flat in Andheri East, Mumbai",
-    "image": "https://example.com/image2.jpg",
+    "image": "https://picsum.photos/id/1016/1000/700",
     "location": "Mumbai",
     "area": "Andheri",
     "state": "Maharashtra",
@@ -38,7 +38,7 @@
   {
     "id": 2,
     "title": "Commercial Showroom in Surat",
-    "image": "https://example.com/image3.jpg",
+    "image": "https://picsum.photos/id/1018/1000/700",
     "location": "Surat",
     "area": "Ring Road",
     "state": "Gujarat",
@@ -56,7 +56,7 @@
   {
     "id": 3,
     "title": "Agricultural Land for Sale in Nashik",
-    "image": "https://example.com/image4.jpg",
+    "image": "https://picsum.photos/id/1019/1000/700",
     "location": "Nashik",
     "area": "Deolali",
     "state": "Maharashtra",
@@ -74,7 +74,7 @@
   {
     "id": 4,
     "title": "Plant & Machinery Unit in Coimbatore",
-    "image": "https://example.com/image5.jpg",
+    "image": "https://picsum.photos/id/1020/1000/700",
     "location": "Coimbatore",
     "area": "SIDCO",
     "state": "Tamil Nadu",
@@ -92,7 +92,7 @@
   {
     "id": 5,
     "title": "Residential Villa in Whitefield, Bengaluru",
-    "image": "https://example.com/image6.jpg",
+    "image": "https://picsum.photos/id/1021/1000/700",
     "location": "Bengaluru",
     "area": "Whitefield",
     "state": "Karnataka",
@@ -110,7 +110,7 @@
   {
     "id": 6,
     "title": "Commercial Office Space in Navi Mumbai",
-    "image": "https://example.com/image7.jpg",
+    "image": "https://picsum.photos/id/1022/1000/700",
     "location": "Navi Mumbai",
     "area": "Mahape",
     "state": "Maharashtra",
@@ -128,7 +128,7 @@
   {
     "id": 7,
     "title": "Industrial Shed for Auction in Vapi",
-    "image": "https://example.com/image8.jpg",
+    "image": "https://res.cloudinary.com/daqlatcsr/image/upload/v1747474308/abcd_sbm6gx.jpg",
     "location": "Vapi",
     "area": "GIDC",
     "state": "Gujarat",

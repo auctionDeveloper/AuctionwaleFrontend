@@ -1,52 +1,59 @@
 import React, { useRef, useState, useEffect } from "react";
-import { Heart, ArrowLeftCircle, ArrowRightCircle, ArrowRight, ChevronDown } from "lucide-react";
+import { Heart, ArrowLeftCircle, ArrowRightCircle, ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-const images = [
-  "https://picsum.photos/id/1015/1000/700",
-  "https://picsum.photos/id/1016/1000/700",
-  "https://picsum.photos/id/1018/1000/700",
-  "https://picsum.photos/id/1019/1000/700",
-  "https://picsum.photos/id/1020/1000/700",
-  "https://picsum.photos/id/1021/1000/700",
-  "https://picsum.photos/id/1022/1000/700",
-];
-
-export default function AreaCurvedCarousel() {
+export default function AreaCarousel() {
   const scrollRef = useRef(null);
-  const dropdownRef = useRef(null);
-  const [liked, setLiked] = useState(Array(images.length).fill(false));
-  const [showDropdown, setShowDropdown] = useState(false);
+  const [liked, setLiked] = useState([]);
+  const [locations, setLocations] = useState([]);
+   const dropdownRef = useRef(null);
+    const [propertyData, setPropertyData] = useState([]);
+    const [showDropdown, setShowDropdown] = useState(false);
+  
   const navigate = useNavigate();
 
   const STORAGE_KEY = "wishlist_area";
 
-  const toggleLike = (index) => {
-    const updatedLikes = [...liked];
-    updatedLikes[index] = !updatedLikes[index];
-    setLiked(updatedLikes);
+  useEffect(() => {
+    fetch("/propertyData.json")
+      .then((res) => res.json())
+      .then((json) => {
+        const uniqueLocations = [...new Set(json.map((item) => item.location))];
+        setLocations(uniqueLocations);
+        setPropertyData(json);
+      setLiked(Array(json.length).fill(false)); // ⬅ set liked array based on loaded data
+      });
+  }, []);
 
-    const currentWishlist = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+const toggleLike = (index) => {
+  const updatedLikes = [...liked];
+  updatedLikes[index] = !updatedLikes[index];
+  setLiked(updatedLikes);
 
-    const imageItem = {
-      id: index,
-      src: images[index],
-      title: `Image Title ${index + 1}`,
-      subtitle: "2-word Text",
-    };
+  const currentWishlist = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
 
-    if (updatedLikes[index]) {
-      const exists = currentWishlist.find((item) => item.id === index);
-      if (!exists) {
-        const updated = [...currentWishlist, imageItem];
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
-      }
-    } else {
-      const updated = currentWishlist.filter((item) => item.id !== index);
+  const imageItem = {
+    id: index,
+    src: propertyData[index].image,
+  };
+
+  if (updatedLikes[index]) {
+    const exists = currentWishlist.find(
+      (item) => item.id === index && item.src === propertyData[index].image
+    );
+    if (!exists) {
+      const updated = [...currentWishlist, imageItem];
       localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
     }
-    window.dispatchEvent(new Event("wishlistUpdated"));
-  };
+  } else {
+    const updated = currentWishlist.filter(
+      (item) => !(item.id === index && item.src === propertyData[index].image)
+    );
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+  }
+
+  window.dispatchEvent(new Event("wishlistUpdated"));
+};
 
   const scroll = (dir) => {
     const container = scrollRef.current;
@@ -55,12 +62,13 @@ export default function AreaCurvedCarousel() {
     else container.scrollLeft += cardWidth;
   };
 
-  const handleOptionClick = (price) => {
-    navigate(`/area_auction?budget=${price}`);
-    setShowDropdown(false);
-  };
+  const handleOptionClick = (range) => {
+  setShowDropdown(false);
+  navigate(`/search_result_page?location=${location}`);
+};  
 
-  useEffect(() => {
+
+ useEffect(() => {
     const handleClickOutside = (e) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
         setShowDropdown(false);
@@ -70,124 +78,123 @@ export default function AreaCurvedCarousel() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  useEffect(() => {
-    const storedWishlist = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-    const restoredLikes = images.map((_, index) =>
-      storedWishlist.some((item) => item.id === index)
-    );
-    setLiked(restoredLikes);
-  }, []);
-
   return (
-    <div className="w-full bg-white relative overflow-hidden top-[-80px]">
-      <div className="relative w-full z-10 py-[50px] overflow-visible">
-        {/* Top Oval */}
-        <div
-          className="absolute left-1/2 transform -translate-x-1/2 z-30"
-          style={{
-            top: "-100px",
-            width: "105vw",
-            height: "270px",
-            backgroundColor: "#ffffff",
-            borderBottomLeftRadius: "100%",
-            borderBottomRightRadius: "100%",
-            userSelect: "none",
-          }}
-        />
+    <div className="w-full bg-white relative">
+      <div className="w-full py-8 px-5">
+        <div className="flex flex-col items-center justify-center mb-6">
+                    <div
+  className="flex items-center gap-2 text-xl sm:text-3xl font-bold text-gray-800 border-b-4 border-red-600 pb-1 mb-2 cursor-pointer"
+  onClick={() => setShowDropdown(!showDropdown)}
+>
+  Areawise Auctions
+  <svg
+    className={`w-5 h-5 transition-transform duration-200 ${showDropdown ? "rotate-180" : "rotate-0"}`}
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    viewBox="0 0 24 24"
+  >
+    <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+  </svg>
+</div>
 
-        {/* Dropdown & Title */}
-        <div className="absolute top-[50px] bottom-[80] left-1/2 transform -translate-x-1/2 z-[99] w-full flex flex-col items-center justify-center">
-          <div className="relative flex items-center gap-2 cursor-pointer" onClick={() => setShowDropdown(!showDropdown)}>
-            <h2 className="text-3xl font-bold text-gray-800 border-b-4 border-red-600 pb-1 mb-2">
-              Areawise Auctions
-            </h2>
-            <ChevronDown className="text-gray-700 hover:text-red-600 mb-2" />
-          </div>
-          <p className="text-gray-500 text-sm sm:text-base font-medium mt-1">
-            Save Your pocket by looking <span className="font-semibold text-gray-700">areawise</span> projects.
+          <p className="text-xs sm:text-base text-gray-500 mt-1">
+            Choose your <span className="font-semibold text-gray-700">Dream Area</span>
           </p>
         </div>
 
-        {showDropdown && (
+         {showDropdown && (
           <div
             ref={dropdownRef}
-            className="absolute top-[110px] left-1/2 transform -translate-x-1/7 bg-white shadow-lg rounded-md z-[10000] w-48"
+            className="absolute top-[50px] left-1/2 transform -translate-x-1/7 bg-white shadow-lg rounded-md z-[10000] w-48"
           >
-            <ul className="text-sm text-gray-700">
-              <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer" onClick={() => handleOptionClick("under-25-lakhs")}>Under 25 Lakhs</li>
-              <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer" onClick={() => handleOptionClick("25-50-lakhs")}>25 - 50 Lakhs</li>
-              <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer" onClick={() => handleOptionClick("above-50-lakhs")}>Above 50 Lakhs</li>
-            </ul>
+           <ul className="text-sm text-gray-700">
+  {locations.slice(0, 6).map((location, idx) => (
+    <li
+      key={idx}
+      className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+      onClick={() => {
+        setShowDropdown(false);
+        navigate(`/search_result_page?location=${encodeURIComponent(location)}`);
+      }}
+    >
+      {location}
+    </li>
+  ))}
+  <li
+    className="px-4 py-2 text-red-600 hover:bg-gray-100 cursor-pointer font-medium border-t"
+    onClick={() => {
+      setShowDropdown(false);
+      navigate("/area_auction");
+    }}
+  >
+    See More
+  </li>
+</ul>
+
+
+
           </div>
         )}
 
-        {/* Bottom Oval */}
-        <div
-          className="absolute left-1/2 transform -translate-x-1/2 w-[150vw] z-30 pointer-events-none pb-1"
-          style={{
-            bottom: "-390px",
-            height: "570px",
-            backgroundColor: "#ffffff",
-            borderTopLeftRadius: "100%",
-            borderTopRightRadius: "100%"
-          }}
-        >
-          <div className="absolute bottom-[490px] left-1/2 -translate-x-1/2 z-40 flex gap-6 pointer-events-auto items-center justify-center">
-            <button onClick={() => scroll("left")}>
-              <ArrowLeftCircle className="w-10 h-10 text-black hover:text-red-600 transition" />
-            </button>
-            <button onClick={() => scroll("right")}>
-              <ArrowRightCircle className="w-10 h-10 text-black hover:text-red-600 transition" />
-            </button>
-          </div>
-        </div>
+        <div ref={scrollRef} className="flex overflow-x-auto scroll-smooth no-scrollbar space-x-4 sm:space-x-5">
+          {propertyData.map((property, index) => (
+  <div
+    key={index}
+    className="group shrink-0 w-[190px] sm:w-[320px] h-[240px] sm:h-[400px] overflow-hidden relative bg-gray-100 rounded-md"
+  >
+    <img src={property.image} alt={`img-${index}`} className="w-full h-full object-cover" />
 
-        {/* Image Cards */}
-        <div
-          ref={scrollRef}
-          className="flex overflow-x-auto scroll-smooth no-scrollbar px-[5vw] space-x-5"
-        >
-          {images.map((src, index) => (
-            <div
-              key={index}
-              className="group shrink-0 w-[45vw] sm:w-[22vw] h-[83vh] sm:h-[90vh] rounded-3xl overflow-hidden relative transition-transform duration-300 z-20 "
-            >
-              <img
-                src={src}
-                alt={`img-${index}`}
-                className="w-full h-full object-cover rounded-3xl"
-              />
-              {/* Heart Icon */}
-              <div
-                onClick={() => toggleLike(index)}
-                className="absolute top-[125px] right-4 z-40 cursor-pointer hover:scale-110 transition-transform"
-              >
-                <div className="bg-white rounded-full p-2 shadow-md flex items-center justify-center w-8 sm:w-11 h-8 pb-1 sm:h-11">
-                  {liked[index] ? (
-                    <Heart className="w-4 sm:w-6 h-4 sm:h-6 text-red-500 fill-red-500" />
-                  ) : (
-                    <Heart className="w-4 sm:w-6 h-4 sm:h-6 text-gray-400" />
-                  )}
-                </div>
-              </div>
-              {/* Hover Overlay */}
-              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition duration-300 flex flex-col justify-end text-white rounded-3xl">
-                <div className="flex flex-col lg:flex-row lg:justify-between lg:items-end items-center text-center sm:text-left px-1 sm:px-14 pb-6 sm:pb-8 py-10 gap-2 sm:gap-0">
-                  <div className="absolute  bottom-40 sm:bottom-44 py-3">
-                    <p className="text-base sm:text-lg md:text-xl font-semibold">Image Title</p>
-                    <p className="text-xs sm:text-sm opacity-80">2-word Text</p>
-                  </div>
-                  <button
-                    onClick={() => navigate('/area_auction')}
-                    className="absolute bottom-40 sm:bottom-44 right-[0] lg:right-10 text-white text-2xl font-bold p-2 hover:scale-110 transition"
-                  >
-                    <ArrowRight className="w-6 h-6" />
-                  </button>
-                </div>
-              </div>
-            </div>
-          ))}
+    <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
+      <p className="text-white text-lg sm:text-2xl font-bold drop-shadow-md  transition-opacity duration-300">
+        {property.location || "Loading..."}
+      </p>
+    </div>
+
+    <div
+      onClick={(e) => {
+        e.stopPropagation();
+        toggleLike(index);
+      }}
+      className="absolute top-2 right-2 cursor-pointer hover:scale-110 transition-transform z-10"
+    >
+      <div className="bg-white rounded-full p-1.5 sm:p-2 shadow-md flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9">
+        {liked[index] ? (
+          <Heart className="w-4 h-4 sm:w-5 sm:h-5 text-red-500 fill-red-500" />
+        ) : (
+          <Heart className="w-4 h-4 sm:w-5 sm:h-5 text-gray-400" />
+        )}
+      </div>
+    </div>
+
+    <div className="absolute inset-x-0 bottom-0 h-full  bg-black/10 transition-all duration-300 flex flex-col justify-end text-white px-3 sm:px-4 pb-3 sm:pb-4">
+      
+     
+      <button
+         onClick={() => {
+      const location = encodeURIComponent(property.location || "Unknown");
+      const bankPrice = encodeURIComponent(property.bankPrice || "0");
+      navigate(`/search_result_page?location=${location}`);
+    }}
+        className="absolute bottom-3 right-3 text-white bg-red-600 rounded-full p-1.5 sm:p-2 hover:bg-red-700"
+      >
+        <ArrowRight size={16} className="sm:hidden" />
+        <ArrowRight size={20} className="hidden sm:block" />
+      </button>
+    </div>
+  </div>
+))}
+                     
         </div>
+      </div>
+
+      <div className="flex justify-center gap-4 sm:gap-6 mb-6">
+        <button onClick={() => scroll("left")}>
+          <ArrowLeftCircle className="w-8 h-8 sm:w-10 sm:h-10 text-black hover:text-red-600 transition" />
+        </button>
+        <button onClick={() => scroll("right")}>
+          <ArrowRightCircle className="w-8 h-8 sm:w-10 sm:h-10 text-black hover:text-red-600 transition" />
+        </button>
       </div>
     </div>
   );

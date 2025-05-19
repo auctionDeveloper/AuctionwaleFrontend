@@ -3,6 +3,8 @@ import logo from '../assets/logo.svg';
 import { FaFacebookF, FaXTwitter, FaLinkedinIn, FaYoutube, FaInstagram } from 'react-icons/fa6';
 
 export default function Footer() {
+
+  
   return (
     <footer className="bg-gray-100 text-[#0B3448] text-sm mt-4">
       <div className="container max-w-7xl mx-auto px-4 py-10 flex flex-col md:flex-row gap-8">
@@ -23,19 +25,23 @@ export default function Footer() {
           </p>
 
           <h4 className="text-lg font-semibold mb-3">Connect With Us Via</h4>
-          <div className="flex gap-4 text-xl">
-            <FaFacebookF className="hover:text-[#930000] cursor-pointer" />
-            <FaXTwitter className="hover:text-[#930000] cursor-pointer" />
-            <FaLinkedinIn className="hover:text-[#930000] cursor-pointer" />
-            <FaYoutube className="hover:text-[#930000] cursor-pointer" />
-            <FaInstagram className="hover:text-[#930000] cursor-pointer" />
+          <div className="flex gap-4 text-xl items-center">
+            <a href="https://www.facebook.com/profile.php?id=61575141254895" target="_blank" rel="noopener noreferrer">
+    <FaFacebookF className="hover:text-[#930000] cursor-pointer" />
+  </a>
+        <a href="https://www.youtube.com/@AuctionWale" target="_blank" rel="noopener noreferrer">
+    <FaYoutube className="hover:text-[#930000] cursor-pointer" />
+  </a>
+  <a href="https://www.instagram.com/auctionwale/" target="_blank" rel="noopener noreferrer">
+    <FaInstagram className="hover:text-[#930000] cursor-pointer" />
+  </a>
           </div>
         </div>
 
         {/* Right Section (60%) */}
         <div className="w-full md:w-[60%] space-y-6">
           <div>
-            <h3 className="font-semibold text-base mb-1">Auctions in India</h3>
+            <h3 className="font-semibold text-base mb-1">Type of Property Auctions in India</h3>
             <p>
               Auctions in New Delhi | Auctions in Kolkata | Auctions in Maharashtra | Auctions in Goa<br />
               Auctions in Assam | Auctions in Gujarat | Auctions in Punjab | Auctions in Chennai
@@ -43,7 +49,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="font-semibold text-base mb-1">New Auctions in India</h3>
+            <h3 className="font-semibold text-base mb-1">Areawise Auctions in India</h3>
             <p>
               Auctions in New Delhi | Auctions in Kolkata | Auctions in Maharashtra | Auctions in Goa<br />
               Auctions in Assam | Auctions in Gujarat | Auctions in Punjab | Auctions in Chennai
