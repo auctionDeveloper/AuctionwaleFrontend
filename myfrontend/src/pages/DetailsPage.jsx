@@ -29,22 +29,24 @@ useEffect(() => {
   fetch("/propertyData.json")
     .then((res) => res.json())
     .then((data) => {
-      let matched;
+      let matchedProperty = null;
 
       if (id) {
-        matched = data.find((item) => item.id === id);
+        matchedProperty = data.find((item) => item.id.toString() === id);
+
       } else if (location && bankPrice) {
-        matched = data.find(
+        matchedProperty = data.find(
           (item) =>
             item.location === location &&
             item.bankPrice.toString() === bankPrice
         );
       }
 
-      setProperty(matched);
+      setProperty(matchedProperty);
     })
-    .catch((err) => console.error("Error loading data:", err));
+    .catch((err) => console.error("Error loading property data:", err));
 }, [searchParams]);
+
 
 
 

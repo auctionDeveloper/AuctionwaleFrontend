@@ -1,10 +1,46 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import logo from '../assets/logo.svg';
 import { FaFacebookF, FaXTwitter, FaLinkedinIn, FaYoutube, FaInstagram } from 'react-icons/fa6';
 
 export default function Footer() {
 
-  
+    const [categories, setCategories] = useState([]);
+  const [areas, setAreas] = useState([]);
+  const [banks, setBanks] = useState([]);
+  const getUniqueByKey = (data, key) => {
+  const seen = new Set();
+  return data.filter(item => {
+    const val = item[key];
+    if (val && !seen.has(val)) {
+      seen.add(val);
+      return true;
+    }
+    return false;
+  });
+};
+
+
+  useEffect(() => {
+    fetch('/propertyData.json') // Replace with your actual API endpoint
+      .then(res => res.json())
+      .then(data => {
+        setCategories(getUniqueByKey(data, 'category').map(item => item.category));
+        setAreas(getUniqueByKey(data, 'area').map(item => item.area));
+        setBanks(getUniqueByKey(data, 'bankName').map(item => item.bankName));
+      });
+  }, []);
+
+  const generateLinks = (items, type) => {
+    return items.slice(0, 20).map((item, idx) => (
+      <a
+        key={idx}
+        href={`/search_result_page?${type}=${encodeURIComponent(item)}`}
+        className="hover:text-[#930000] underline"
+      >
+        Auctions in {item}
+      </a>
+    ));
+  };
   return (
     <footer className="bg-gray-100 text-[#0B3448] text-sm mt-4">
       <div className="container max-w-7xl mx-auto px-4 py-10 flex flex-col md:flex-row gap-8">
@@ -42,26 +78,23 @@ export default function Footer() {
         <div className="w-full md:w-[60%] space-y-6">
           <div>
             <h3 className="font-semibold text-base mb-1">Type of Property Auctions in India</h3>
-            <p>
-              Auctions in New Delhi | Auctions in Kolkata | Auctions in Maharashtra | Auctions in Goa<br />
-              Auctions in Assam | Auctions in Gujarat | Auctions in Punjab | Auctions in Chennai
-            </p>
+            <div className="flex flex-wrap gap-x-4 gap-y-2">
+          {generateLinks(categories, 'category')}
+        </div>
           </div>
 
           <div>
             <h3 className="font-semibold text-base mb-1">Areawise Auctions in India</h3>
-            <p>
-              Auctions in New Delhi | Auctions in Kolkata | Auctions in Maharashtra | Auctions in Goa<br />
-              Auctions in Assam | Auctions in Gujarat | Auctions in Punjab | Auctions in Chennai
-            </p>
+             <div className="flex flex-wrap gap-x-4 gap-y-2">
+         {generateLinks(areas, 'location')}
+        </div>
           </div>
 
           <div>
             <h3 className="font-semibold text-base mb-1">Bank Auctions in India</h3>
-            <p>
-              Auctions in Kotak Bank | Auctions in IndusInd Bank | Auctions in Canara Bank | Auctions in SBI Bank<br />
-              Auctions in ICICI Bank | Auctions in HDFC Bank | Auctions in Punjab National Bank | Auctions in Union Bank
-            </p>
+           <div className="flex flex-wrap gap-x-4 gap-y-2">
+        {generateLinks(banks, 'bank')}  
+        </div>
           </div>
         </div>
       </div>
