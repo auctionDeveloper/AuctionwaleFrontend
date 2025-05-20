@@ -2,6 +2,9 @@ import { useState, useEffect } from "react";
 import { MapPin, User, Coins, CalendarDays, Search } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Landmark } from 'lucide-react'; // This looks like a bank building
+import { useRef } from "react"; // already present if you're using it
+
+
 
 
 export default function SearchBar() {
@@ -10,7 +13,7 @@ export default function SearchBar() {
   const [categories, setCategories] = useState([]);
   const [budgets, setBudgets] = useState([]);
   const [bankNames, setBankNames] = useState([]);
-  
+  const datePickerRef = useRef(null);
 
   const [selectedCategory, setSelectedCategory] = useState("Residential");
   const [selectedCity, setSelectedCity] = useState("");
@@ -78,6 +81,28 @@ const [showDatePicker, setShowDatePicker] = useState(false);
         setBankNames(Array.from(bankNameSet));
       });
   }, []);
+
+  useEffect(() => {
+  const handleClickOutside = (event) => {
+    if (
+      datePickerRef.current &&
+      !datePickerRef.current.contains(event.target)
+    ) {
+      setShowDatePicker(false);
+    }
+  };
+
+  if (showDatePicker) {
+    document.addEventListener("mousedown", handleClickOutside);
+  } else {
+    document.removeEventListener("mousedown", handleClickOutside);
+  }
+
+  return () => {
+    document.removeEventListener("mousedown", handleClickOutside);
+  };
+}, [showDatePicker]);
+
 
   const handleDateChange = (e) => {
     const selected = e.target.value;
@@ -163,7 +188,7 @@ const [showDatePicker, setShowDatePicker] = useState(false);
 
           {/* Auction Date Range */}
           {/* Auction Date Range */}
-<div className="w-[200px] sm:w-[260px] flex items-center gap-0 sm:gap-2 px-1 sm:px-3 py-2 border-r border-gray-300">
+<div className="w-[200px] sm:w-[260px] flex items-center gap-1 sm:gap-2 px-1 sm:px-3 py-2 border-r border-gray-300">
   <CalendarDays className="text-gray-500 w-4 h-4 shrink-0 cursor-pointer"
   onClick={() => setShowDatePicker(!showDatePicker)} />
 
@@ -176,34 +201,48 @@ const [showDatePicker, setShowDatePicker] = useState(false);
       : "From - To"}
   </div>
 
-  {showDatePicker && (
-    <div className="absolute top-14 left-50 bg-white shadow-lg border rounded-md p-2 flex flex-col gap-2 z-50">
-      <label className="text-xs text-gray-500">From:</label>
-      <input
-        type="date"
-        className="text-xs border rounded px-2 py-1"
-        value={startDate}
-        onChange={(e) => {
-          setStartDate(e.target.value);
-          if (endDate && new Date(e.target.value) > new Date(endDate)) {
-            setEndDate(""); // reset end date if before start
-          }
-        }}
-      />
-
-      <label className="text-xs text-gray-500 mt-2">To:</label>
-      <input
-        type="date"
-        className="text-xs border rounded px-2 py-1"
-        value={endDate}
-        min={startDate}
-        onChange={(e) => {
-          setEndDate(e.target.value);
-          setShowDatePicker(false); // auto-close after selecting end
-        }}
-      />
+{showDatePicker && (
+  <div
+    ref={datePickerRef}
+    className="absolute top-14 left-50 bg-white shadow-lg border rounded-md p-2 flex flex-col gap-2 z-50"
+  >
+    <div className="flex justify-between items-center mb-1">
+      <label className="text-xs text-gray-700 font-semibold">Select Dates</label>
+      <button
+        onClick={() => setShowDatePicker(false)}
+        className="text-red-500  font-bold text-sm pb-2"
+      >
+        ×
+      </button>
     </div>
-  )}
+
+    <label className="text-xs text-gray-500">From:</label>
+    <input
+      type="date"
+      className="text-xs border rounded px-2 py-1"
+      value={startDate}
+      onChange={(e) => {
+        setStartDate(e.target.value);
+        if (endDate && new Date(e.target.value) > new Date(endDate)) {
+          setEndDate(""); // reset end date if before start
+        }
+      }}
+    />
+
+    <label className="text-xs text-gray-500 mt-2">To:</label>
+    <input
+      type="date"
+      className="text-xs border rounded px-2 py-1"
+      value={endDate}
+      min={startDate}
+      onChange={(e) => {
+        setEndDate(e.target.value);
+        setShowDatePicker(false); // auto-close after selecting end
+      }}
+    />
+  </div>
+)}
+
 </div>
 
 
