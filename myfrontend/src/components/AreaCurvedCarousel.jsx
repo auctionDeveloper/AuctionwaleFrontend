@@ -21,7 +21,12 @@ export default function AreaCarousel() {
         const uniqueLocations = [...new Set(json.map((item) => item.location))];
         setLocations(uniqueLocations);
         setPropertyData(json);
-      setLiked(Array(json.length).fill(false)); // ⬅ set liked array based on loaded data
+      const saved = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+const restoredLikes = json.map((item) =>
+  saved.some((w) => w.id === item.id && w.src === item.image)
+);
+setLiked(restoredLikes);
+
       });
   }, []);
 
@@ -30,30 +35,36 @@ const toggleLike = (index) => {
   updatedLikes[index] = !updatedLikes[index];
   setLiked(updatedLikes);
 
-  const currentWishlist = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+  const property = propertyData[index]; // ✅ get the actual property item
 
   const imageItem = {
-    id: index,
-    src: propertyData[index].image,
+    id: property.id || index, // fallback to index if no id
+    src: property.image,
+    title: property.title || "Untitled Property",
+    location: property.location || "Unknown",
+    subtitle: property.area || "",
   };
 
+  const currentWishlist = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+
   if (updatedLikes[index]) {
-    const exists = currentWishlist.find(
-      (item) => item.id === index && item.src === propertyData[index].image
-    );
+    // Only add if not already present
+    const exists = currentWishlist.some((item) => item.id === imageItem.id && item.src === imageItem.src);
     if (!exists) {
-      const updated = [...currentWishlist, imageItem];
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+      const updatedWishlist = [...currentWishlist, imageItem];
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedWishlist));
     }
   } else {
-    const updated = currentWishlist.filter(
-      (item) => !(item.id === index && item.src === propertyData[index].image)
+    // Remove from wishlist
+    const updatedWishlist = currentWishlist.filter(
+      (item) => !(item.id === imageItem.id && item.src === imageItem.src)
     );
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedWishlist));
   }
 
   window.dispatchEvent(new Event("wishlistUpdated"));
 };
+
 
   const scroll = (dir) => {
     const container = scrollRef.current;

@@ -33,10 +33,16 @@ const toggleLike = (index) => {
 
   const currentWishlist = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
 
-  const imageItem = {
-    id: index,
-    src: propertyData[index].image,
-  };
+const imageItem = {
+  id: index,
+  src: propertyData[index].image,
+  title: propertyData[index].title,
+  location: propertyData[index].location,
+  bankPrice: propertyData[index].bankPrice,
+  marketPrice: propertyData[index].marketPrice,
+  source: "budget"
+};
+
 
   if (updatedLikes[index]) {
     const exists = currentWishlist.find(
