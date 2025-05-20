@@ -20,7 +20,7 @@ const features = [
 
 export default function WhyUseAuctionwale() {
   return (
-    <section className=" px-4 bg-white text-center overflow-hidden z-[999] mb-10">
+    <section className="py-10 px-4 bg-white text-center overflow-hidden z-[999] mb-10">
       {/* Decorative Heading with Dots */}
       <div className="flex items-center justify-center mb-10 relative mt-[8px]">
         <div className="flex-grow h-px bg-[#0B3448] mr-2 relative text-extrabold">

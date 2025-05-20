@@ -69,7 +69,7 @@ export default function BankAuctions() {
         </div>
 
         {/* Bottom Row - scrolls right */}
-        <div className="overflow-hidden w-full mt-4 sm:mt-6 group">
+        <div className="overflow-hidden w-full mt-6 sm:mt-10 group">
           <div className="flex w-[200%] animate-scroll-right group-hover:[animation-play-state:paused]">
             {[...bottomRowBanks, ...bottomRowBanks].map((bank, index) => (
               <div
