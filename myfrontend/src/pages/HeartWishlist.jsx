@@ -9,26 +9,46 @@ export default function WishlistPage() {
   useEffect(() => {
     const budgetWishlist = (JSON.parse(localStorage.getItem("wishlist_budget")) || []).map(item => ({ ...item, source: "budget" }));
     const areaWishlist = (JSON.parse(localStorage.getItem("wishlist_area")) || []).map(item => ({ ...item, source: "area" }));
-    setWishlist([...budgetWishlist, ...areaWishlist]);
+    const searchWishlist = (JSON.parse(localStorage.getItem("wishlist_results")) || []).map(item => ({ ...item, source: "search" }));
+    
+    setWishlist([...budgetWishlist, ...areaWishlist, ...searchWishlist]);
   }, []);
 
   const removeFromWishlist = (id, source) => {
     const budget = JSON.parse(localStorage.getItem("wishlist_budget")) || [];
     const area = JSON.parse(localStorage.getItem("wishlist_area")) || [];
+    const results = JSON.parse(localStorage.getItem("wishlist_results")) || [];
 
     const updatedBudget = source === "budget" ? budget.filter(item => item.id !== id) : budget;
     const updatedArea = source === "area" ? area.filter(item => item.id !== id) : area;
+    const updatedResults = source === "search" ? results.filter(item => item.id !== id) : results;
 
     localStorage.setItem("wishlist_budget", JSON.stringify(updatedBudget));
     localStorage.setItem("wishlist_area", JSON.stringify(updatedArea));
+    localStorage.setItem("wishlist_results", JSON.stringify(updatedResults));
 
     const updatedCombined = [
       ...updatedBudget.map(item => ({ ...item, source: "budget" })),
-      ...updatedArea.map(item => ({ ...item, source: "area" }))
+      ...updatedArea.map(item => ({ ...item, source: "area" })),
+      ...updatedResults.map(item => ({ ...item, source: "search" })),
     ];
     setWishlist(updatedCombined);
     window.dispatchEvent(new Event("wishlistUpdated"));
   };
+const saveToList = (item, key) => {
+  const list = JSON.parse(localStorage.getItem(key)) || [];
+  const exists = list.some((saved) => saved.id === item.id);
+  if (!exists) {
+    const newItem = {
+      ...item,
+      source: key === "wishlist_budget" ? "budget" : key === "wishlist_area" ? "area" : "search",
+    };
+    list.push(newItem);
+    localStorage.setItem(key, JSON.stringify(list));
+    setWishlist((prev) => [...prev, newItem]);
+    window.dispatchEvent(new Event("wishlistUpdated"));
+  }
+};
 
   return (
     <div className="p-6 max-w-7xl mx-auto">
@@ -45,33 +65,33 @@ export default function WishlistPage() {
                 className="w-full h-60 object-cover"
               />
               <div className="p-4">
-                <h3 className="text-lg font-semibold text-gray-800">
-                  {item.title}
-                </h3>
+                <h3 className="text-lg font-semibold text-gray-800">{item.title}</h3>
                 {item.marketPrice && (
-                  <p className="text-sm text-gray-500">
-                    Market Price: {item.marketPrice}
-                  </p>
+                  <p className="text-sm text-gray-500">Market Price: {item.marketPrice}</p>
                 )}
-                <p className="text-sm text-gray-500">
-                  Location: {item.location || "N/A"}
-                </p>
+                <p className="text-sm text-gray-500">Location: {item.location || "N/A"}</p>
 
-                <button
-                  onClick={() => {
-                    const location = encodeURIComponent(item.location || "Unknown");
+                <div className="mt-4 flex flex-wrap gap-2">
+  <button
+    onClick={() => saveToList(item, "wishlist_budget")}
+    className="text-sm text-blue-600 border border-blue-600 px-2 py-1 rounded hover:bg-blue-50"
+  >
+    Save to Budget
+  </button>
+  <button
+    onClick={() => saveToList(item, "wishlist_area")}
+    className="text-sm text-green-600 border border-green-600 px-2 py-1 rounded hover:bg-green-50"
+  >
+    Save to Area
+  </button>
+  <button
+    onClick={() => saveToList(item, "wishlist_results")}
+    className="text-sm text-purple-600 border border-purple-600 px-2 py-1 rounded hover:bg-purple-50"
+  >
+    Save to Search
+  </button>
+</div>
 
-                    if (item.source === "budget") {
-                      const bankPrice = encodeURIComponent(item.bankPrice || "0");
-                      navigate(`/detailspage?location=${location}&bankPrice=${bankPrice}`);
-                    } else {
-                      navigate(`/search_result_page?location=${location}`);
-                    }
-                  }}
-                  className="mt-3 text-red-600 font-semibold hover:underline flex items-center gap-1"
-                >
-                  View More <ArrowRight className="w-4 h-4" />
-                </button>
               </div>
               <div
                 onClick={() => removeFromWishlist(item.id, item.source)}
