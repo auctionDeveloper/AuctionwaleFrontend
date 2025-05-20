@@ -31,13 +31,71 @@
 
 
 
-.topoval{
-  position: absolute;
-  top: -100px;
-  width: "105vw";
-  height: "270px";
-  background-color: "#ffffff";
-  border-bottom-left-radius: "100%";
-  border-bottom-right-radius: "100%";
-  user-select: "none"
+/* Make selected range blue */
+.rdrSelected,
+.rdrInRange,
+.rdrStartEdge,
+.rdrEndEdge {
+  background: #dc2626 !important; /* Red-600 (Tailwind) */
+  color: white;
+  border-radius: 8px;
+}
+
+/* Change today's highlight color */
+.rdrDayToday .rdrDayNumber span::after {
+  background: #2563eb !important; /* Blue-600 */
+}
+
+/* Change text color */
+.rdrDayNumber span {
+  color: #111827; /* Tailwind Gray-900 */
+}
+
+/* Padding and margin for date cells */
+.rdrDay {
+  padding: 4px !important;
+  margin: 2px !important;
+  padding-bottom: 2px;
+}
+
+/* Change the calendar header colors */
+.rdrMonthAndYearPickers select {
+  background-color: #f9fafb; /* Light gray */
+  color: #1f2937; /* Gray-800 */
+  border-radius: 6px;
+  padding: 4px;
+}
+
+/* Optional: reduce month spacing */
+.rdrMonth {
+  padding: 0 12px;
+}
+
+/* Optional: shadow and border around the whole calendar */
+.rdrCalendarWrapper {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  border: 1px solid #e5e7eb; /* Tailwind Gray-200 */
+}
+/* Hide the native dropdown arrows */
+.rdrMonthAndYearPickers select,
+.rdrDayPicker select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+/* Optionally hide the entire selectors if not needed */
+.rdrMonthAndYearPickers select {
+  display: none;
+}
+/* Remove appearance and reset padding from date cells */
+.rdrDayNumber button {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  background: transparent !important;
+  padding: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
 }

@@ -14,6 +14,8 @@ export default function SearchResultPage({ category, availability, location, bud
   const queryBudget = searchParams.get('budget');
   const minBudget = parseInt(searchParams.get('minBudget')) || null;
 const maxBudget = parseInt(searchParams.get('maxBudget')) || null;
+const queryStartDate = searchParams.get("startDate");
+const queryEndDate = searchParams.get("endDate");
 
   
 
@@ -62,12 +64,12 @@ const getCategoryName = (category) => {
 
   const filtered = data.filter((item) => {
    
-
-     const matchCategory = category
-  ? item.category === category
+const matchCategory = category
+  ? item.category.toLowerCase() === category.toLowerCase()
   : queryCategory
-  ? getCategoryName(item.category) === queryCategory
+  ? item.category.toLowerCase() === queryCategory.toLowerCase()
   : true;
+
 
     const matchStatus = availability ? item.propertyStatus === availability : true;
 const matchLocation =
@@ -84,9 +86,19 @@ const matchLocation =
       ? item.bankName.toLowerCase() === queryBank.toLowerCase()
       : true;
    ;
-   const matchBudgetRange = (minBudget && maxBudget)
-  ? parsePrice(item.bankPrice) >= minBudget && parsePrice(item.bankPrice) <= maxBudget
-  : true;
+   const auctionDate = new Date(item.auctionDate);
+const matchAuctionDate = (() => {
+  if (!queryStartDate && !queryEndDate) return true;
+  if (queryStartDate && auctionDate < new Date(queryStartDate)) return false;
+  if (queryEndDate && auctionDate > new Date(queryEndDate)) return false;
+  return true;
+})();
+
+ const matchBudgetRange = (
+  (!minBudget || parsePrice(item.bankPrice) >= minBudget) &&
+  (!maxBudget || parsePrice(item.bankPrice) <= maxBudget)
+);
+
 
 
 
@@ -101,7 +113,9 @@ return (
   matchBudget &&
   matchQueryState &&
   matchQueryBank &&
-  matchBudgetRange
+  matchQueryBank &&
+  matchBudgetRange &&
+  matchAuctionDate
 );
 
   });

@@ -177,7 +177,7 @@ const handleOptionClick = (range) => {
       </div>
     </div>
 
-    <div className="absolute inset-x-0 bottom-0 h-1/4  bg-[#011b25bd] transition-all duration-300 flex flex-col justify-end text-white px-3 sm:px-4 pb-3 sm:pb-4">
+    <div className="absolute inset-x-0 bottom-0 h-1/4  bg-[#011b25bd] transition-all duration-300 flex flex-col justify-end text-white px-3 sm:px-4 pb-1 sm:pb-4">
       <p className="text-sm sm:text-lg font-semibold">
         {property.bankPrice || "Loading..."}
       </p>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';  // Import useNavigate
+import { useNavigate } from 'react-router-dom';
 import SBI from '../assets/SBI.svg';
 import BOB from '../assets/BOB.svg';
 import KOTAK from '../assets/Kotak.svg';
@@ -28,10 +28,10 @@ const bottomRowBanks = [
 ];
 
 export default function BankAuctions() {
-  const navigate = useNavigate();  // Initialize the navigate hook
+  const navigate = useNavigate();
 
   const handleMoreBanksClick = () => {
-    navigate('/bank_auction');  // Navigate to the "bank_auction" page
+    navigate('/bank_auction');
   };
 
   const handleBankClick = (bankName) => {
@@ -47,8 +47,8 @@ export default function BankAuctions() {
         </h2>
 
         {/* Top Row - scrolls left */}
-        <div className="overflow-hidden w-full">
-          <div className="flex w-[200%] animate-scroll-left">
+        <div className="overflow-hidden w-full group">
+          <div className="flex w-[200%] animate-scroll-left group-hover:[animation-play-state:paused]">
             {[...topRowBanks, ...topRowBanks].map((bank, index) => (
               <div
                 key={`top-${index}`}
@@ -69,8 +69,8 @@ export default function BankAuctions() {
         </div>
 
         {/* Bottom Row - scrolls right */}
-        <div className="overflow-hidden w-full mt-4 sm:mt-6">
-          <div className="flex w-[200%] animate-scroll-right">
+        <div className="overflow-hidden w-full mt-4 sm:mt-6 group">
+          <div className="flex w-[200%] animate-scroll-right group-hover:[animation-play-state:paused]">
             {[...bottomRowBanks, ...bottomRowBanks].map((bank, index) => (
               <div
                 key={`bottom-${index}`}
