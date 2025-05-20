@@ -188,7 +188,7 @@ const [showDatePicker, setShowDatePicker] = useState(false);
 
           {/* Auction Date Range */}
           {/* Auction Date Range */}
-<div className="w-[200px] sm:w-[260px] flex items-center gap-1 sm:gap-2 px-1 sm:px-3 py-2 border-r border-gray-300">
+<div className="w-[200px] sm:w-[265px] flex items-center gap-1 sm:gap-2 px-1 sm:px-3 py-2 border-r border-gray-300">
   <CalendarDays className="text-gray-500 w-4 h-4 shrink-0 cursor-pointer"
   onClick={() => setShowDatePicker(!showDatePicker)} />
 
