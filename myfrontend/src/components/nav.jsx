@@ -69,23 +69,26 @@ const updateWishlistCount = () => {
     localStorage.removeItem('readyToLogin');
   }
 
-  const handleClickOutside = (e) => {
-    if (
-      !menuRef.current?.contains(e.target) &&
-      !featuresMenuRef.current?.contains(e.target) &&
-      !featuresButtonRef.current?.contains(e.target)
-    ) {
-      setShowMenu(false);
-      setShowFeatures(false);
-    }
+const handleClickOutside = (e) => {
+  if (
+    !menuRef.current?.contains(e.target) &&
+    !featuresMenuRef.current?.contains(e.target) &&
+    !featuresButtonRef.current?.contains(e.target)
+  ) {
+    setShowMenu(false);
+    setShowFeatures(false);
+  }
 
-    if (
-      mobileSidebarRef.current &&
-      !mobileSidebarRef.current.contains(e.target)
-    ) {
-      setMobileFeatures(false);
-    }
-  };
+  if (
+    mobileSidebarRef.current &&
+    !mobileSidebarRef.current.contains(e.target) &&
+    isOpen
+  ) {
+    setIsOpen(false);          // ✅ Close the sidebar
+    setMobileFeatures(false);  // ✅ Close nested mobile menus
+  }
+};
+
 
   document.addEventListener('mousedown', handleClickOutside);
   return () => {
@@ -291,12 +294,42 @@ const logout = () => {
               </div>
               {mobileFeatures && (
                 <ul className="ml-4 text-sm flex flex-col gap-2 mt-1">
-                  <li><Link to='/photovideos'>Photo & Videos</Link></li>
-                  <li><Link to='/tsr'>TSR</Link></li>
-                  <li><Link to='/valuation_report'>Valuation Report</Link></li>
-                  <li><Link to='/public_sales_notice'>Public & Sales Notice</Link></li>
-                  <li><Link to='/bank_doc'>Bank Document</Link></li>
-                  <li><Link to='/comparison_chart'>Comparison Chart</Link></li>
+                  <li><Link to='/photovideos' className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
+  onClick={() => {
+    setShowFeatures(false); 
+    setMobileFeatures(false); 
+    setIsOpen(false); 
+  }}>Photo & Videos</Link></li>
+                  <li><Link to='/tsr' className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
+  onClick={() => {
+    setShowFeatures(false); 
+    setMobileFeatures(false); 
+    setIsOpen(false); 
+  }}>TSR</Link></li>
+                  <li><Link to='/valuation_report' className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
+  onClick={() => {
+    setShowFeatures(false); 
+    setMobileFeatures(false); 
+    setIsOpen(false); 
+  }}>Valuation Report</Link></li>
+                  <li><Link to='/public_sales_notice' className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
+  onClick={() => {
+    setShowFeatures(false); 
+    setMobileFeatures(false); 
+    setIsOpen(false); 
+  }}>Public & Sales Notice</Link></li>
+                  <li><Link to='/bank_doc' className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
+  onClick={() => {
+    setShowFeatures(false); 
+    setMobileFeatures(false); 
+    setIsOpen(false); 
+  }}>Bank Document</Link></li>
+                  <li><Link to='/comparison_chart' className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
+  onClick={() => {
+    setShowFeatures(false); 
+    setMobileFeatures(false); 
+    setIsOpen(false); 
+  }}>Comparison Chart</Link></li>
                 </ul>
               )}
                 <Link to="/expert_advice" onClick={toggleSidebar}>Call Expert</Link>
@@ -315,12 +348,42 @@ const logout = () => {
           style={{ top: `${featuresPosition.top}px`, left: `${featuresPosition.left}px` }}
         >
           <ul className="text-sm">
-            <li className="px-4 py-2 hover:bg-gray-100"><Link to='/photovideos'>Photo & Videos</Link></li>
-            <li className="px-4 py-2 hover:bg-gray-100"><Link to='/tsr'>TSR</Link></li>
-            <li className="px-4 py-2 hover:bg-gray-100"><Link to='/valuation_report'>Valuation Report</Link></li>
-            <li className="px-4 py-2 hover:bg-gray-100"><Link to='/public_sales_notice'>Public & Sales Notice</Link></li>
-            <li className="px-4 py-2 hover:bg-gray-100"><Link to='/bank_doc'>Bank Document</Link></li>
-            <li className="px-4 py-2 hover:bg-gray-100"><Link to='/comparison_chart'>Comparison Chart</Link></li>
+            <li className="px-4 py-2 hover:bg-gray-100"><Link to='/photovideos' className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
+  onClick={() => {
+    setShowFeatures(false); 
+    setMobileFeatures(false); 
+    setIsOpen(false); 
+  }}>Photo & Videos</Link></li>
+            <li className="px-4 py-2 hover:bg-gray-100"><Link to='/tsr' className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
+  onClick={() => {
+    setShowFeatures(false); 
+    setMobileFeatures(false); 
+    setIsOpen(false); 
+  }}>TSR</Link></li>
+            <li className="px-4 py-2 hover:bg-gray-100"><Link to='/valuation_report' className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
+  onClick={() => {
+    setShowFeatures(false); 
+    setMobileFeatures(false); 
+    setIsOpen(false); 
+  }}>Valuation Report</Link></li>
+            <li className="px-4 py-2 hover:bg-gray-100"><Link to='/public_sales_notice' className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
+  onClick={() => {
+    setShowFeatures(false); 
+    setMobileFeatures(false); 
+    setIsOpen(false); 
+  }}>Public & Sales Notice</Link></li>
+            <li className="px-4 py-2 hover:bg-gray-100"><Link to='/bank_doc' className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
+  onClick={() => {
+    setShowFeatures(false); 
+    setMobileFeatures(false); 
+    setIsOpen(false); 
+  }}>Bank Document</Link></li>
+            <li className="px-4 py-2 hover:bg-gray-100"><Link to='/comparison_chart' className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
+  onClick={() => {
+    setShowFeatures(false); 
+    setMobileFeatures(false); 
+    setIsOpen(false); 
+  }} >Comparison Chart</Link></li>
           </ul>
         </div>
       )}

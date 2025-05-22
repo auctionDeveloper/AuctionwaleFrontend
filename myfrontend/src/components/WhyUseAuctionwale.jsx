@@ -23,16 +23,24 @@ export default function WhyUseAuctionwale() {
     <section className="py-10 px-4 bg-white text-center overflow-hidden z-[999] mb-10">
       {/* Decorative Heading with Dots */}
       <div className="flex items-center justify-center mb-10 relative mt-[8px]">
-        <div className="flex-grow h-px bg-[#0B3448] mr-2 relative text-extrabold">
-          <span className="absolute right-0 top-1/2 transform -translate-y-1/2 w-2 h-2 bg-[#0B3448] rounded-full" />
-        </div>
-        <h2 className="text-[#0B3448] text-xl sm:text-2xl font-bold px-4">
-          Why Use Auctionwale
-        </h2>
-        <div className="flex-grow h-px bg-[#0B3448] ml-2 relative">
-          <span className="absolute left-0 top-1/2 transform -translate-y-1/2 w-2 h-2 bg-[#0B3448] rounded-full" />
-        </div>
-      </div>
+  {/* Left Line with Dot */}
+  <div className="flex items-center flex-grow mr-2">
+    <div className="h-px bg-[#0B3448] flex-grow" />
+    <div className="w-2 h-2 bg-[#0B3448] rounded-full mx-1" />
+  </div>
+
+  {/* Heading */}
+  <h2 className="text-[#0B3448] text-md sm:text-2xl font-bold px-4">
+    Why Use Auctionwale
+  </h2>
+
+  {/* Right Line with Dot */}
+  <div className="flex items-center flex-grow ml-2">
+    <div className="w-2 h-2 bg-[#0B3448] rounded-full mx-1" />
+    <div className="h-px bg-[#0B3448] flex-grow" />
+  </div>
+</div>
+
 
       {/* Row 1: 4 Items */}
       <div className="grid grid-cols-4 gap-4 sm:gap-10 justify-center max-w-6xl mx-auto pb-1 overflow-hidden">

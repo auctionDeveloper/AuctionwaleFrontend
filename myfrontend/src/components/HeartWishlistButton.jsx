@@ -4,30 +4,45 @@ import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlin
 
 export default function HeartWishlistButton() {
   const [wishlistCount, setWishlistCount] = useState(0);
+  const [, forceUpdate] = useState(0); // Forcing re-render
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const updateWishlistCount = () => {
+  const updateWishlistCount = () => {
+    try {
       const budget = JSON.parse(localStorage.getItem("wishlist_budget")) || [];
       const area = JSON.parse(localStorage.getItem("wishlist_area")) || [];
+      const results = JSON.parse(localStorage.getItem("wishlist_results")) || [];
 
-      // Optional: Remove duplicates based on id + src
-      const combined = [...budget, ...area];
-      const unique = combined.filter(
-        (item, index, self) =>
-          index === self.findIndex((t) => t.id === item.id && t.src === item.src)
-      );
+      const combined = [...budget, ...area, ...results];
+
+      const seen = new Set();
+      const unique = combined.filter(item => {
+        if (!item?.id || seen.has(item.id)) return false;
+        seen.add(item.id);
+        return true;
+      });
 
       setWishlistCount(unique.length);
+    } catch (error) {
+      console.error("Failed to update wishlist count", error);
+    }
+  };
+
+  useEffect(() => {
+    const handleWishlistUpdate = () => {
+      updateWishlistCount();
+      forceUpdate(n => n + 1); // Trigger re-render
     };
 
-    updateWishlistCount();
-    window.addEventListener("wishlistUpdated", updateWishlistCount);
-    window.addEventListener("storage", updateWishlistCount);
+    updateWishlistCount(); // Initial count
+
+    // Event listeners
+    window.addEventListener("wishlistUpdated", handleWishlistUpdate);
+    window.addEventListener("storage", handleWishlistUpdate);
 
     return () => {
-      window.removeEventListener("wishlistUpdated", updateWishlistCount);
-      window.removeEventListener("storage", updateWishlistCount);
+      window.removeEventListener("wishlistUpdated", handleWishlistUpdate);
+      window.removeEventListener("storage", handleWishlistUpdate);
     };
   }, []);
 

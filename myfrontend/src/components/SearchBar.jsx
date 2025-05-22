@@ -143,24 +143,24 @@ const [showDatePicker, setShowDatePicker] = useState(false);
   };
 
   return (
-    <div className="relative w-auto px-1 sm:px-4 md:px-8 py-10 flex justify-center bg-white pb-2 overflow-visible">
+    <div className="relative w-auto px-1 sm:px-4 md:px-8 py-10 flex justify-center bg-white pb-2 overflow-visible ">
       <div className="w-full max-w-6xl flex flex-col items-center relative text-xs z-20 overflow-visible">
 
         {/* Category Tabs */}
-        <div className="bg-[#123243] rounded-t-full py-4 px-0 sm:px-6 w-full lg:w-[600px] z-0 mx-0 sm:mx-2">
-          <div className="flex justify-center flex-wrap gap-x-1 sm:gap-x-6 gap-y-0 sm:gap-y-2 text-white text-xs lg:text-md pb-6">
+        <div className="bg-[#123243] rounded sm:rounded-t-full py-4 px-0 sm:px-6 w-full lg:w-[600px] z-0 mx-0 sm:mx-2">
+          <div className="flex justify-center flex-wrap gap-x-0 sm:gap-x-6 gap-y-0 sm:gap-y-2 text-white text-[10px] lg:text-md pb-6">
             {categories.map((cat, index) => (
-              <div key={cat} className="flex items-center gap-1 sm:gap-2">
+              <div key={cat} className="flex items-center gap-2 mr-1 sm:gap-2">
                 <button
                   onClick={() => setSelectedCategory(cat)}
                   className={`${
                     selectedCategory === cat ? "font-semibold underline" : ""
                   }`}
                 >
-                  {cat}
+                   {cat} 
                 </button>
                 {index !== categories.length - 1 && (
-                  <span className="text-white leading-none pb-1">|</span>
+                  <span className="text-white leading-none pb-1 mx-1 sm:mx-2  sm:block">|</span>
                 )}
               </div>
             ))}
@@ -168,7 +168,7 @@ const [showDatePicker, setShowDatePicker] = useState(false);
         </div>
 
         {/* Search Bar */}
-        <div className="w-full lg:w-[750px] h-[45px] sm:h-[50px] mt-[-24px] bg-white border border-red-700 rounded-full flex items-stretch z-10 shadow-sm text-xs overflow-x-auto no-scrollbar">
+        <div className="w-full lg:w-[750px] h-[45px] sm:h-[50px] mt-[-24px] bg-white border border-red-700 rounded sm:rounded-full flex items-stretch z-10 shadow-sm text-xs overflow-x-auto no-scrollbar">
           
           {/* City */}
 {/* City */}
@@ -279,7 +279,7 @@ const [showDatePicker, setShowDatePicker] = useState(false);
           {/* Search Button */}
           <button
             onClick={handleSearchClick}
-            className="bg-red-700 px-4 flex items-center justify-center rounded-r-full"
+            className="bg-red-700 px-4 flex items-center justify-center rounded sm:rounded-r-full"
           >
             <Search className="text-white w-6 h-6 font-semibold" />
           </button>

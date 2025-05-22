@@ -39,10 +39,10 @@ export default function BankAuctions() {
   };
 
   return (
-    <div className="relative bg-white w-full overflow-x-hidden pb-16">
+    <div className="mt-[-50px] sm:mt-[10px] relative bg-white w-full overflow-x-hidden pb-16">
       {/* Blue Bank Section */}
-      <div className="bg-[#0B3448] py-4 pb-20 w-full overflow-hidden">
-        <h2 className="text-white text-lg sm:text-xl font-semibold text-center mb-4 sm:mb-6">
+      <div className="bg-[#0B3448] py-4 pb-20 w-full overflow-hidden ">
+        <h2 className="text-white text-lg sm:text-2xl font-semibold text-center mb-8 sm:mb-6">
           Bank Auctions
         </h2>
 
@@ -69,7 +69,7 @@ export default function BankAuctions() {
         </div>
 
         {/* Bottom Row - scrolls right */}
-        <div className="overflow-hidden w-full mt-6 sm:mt-10 group">
+        <div className="overflow-hidden w-full mt-6 sm:mt-10 group mb-[-20px]">
           <div className="flex w-[200%] animate-scroll-right group-hover:[animation-play-state:paused]">
             {[...bottomRowBanks, ...bottomRowBanks].map((bank, index) => (
               <div

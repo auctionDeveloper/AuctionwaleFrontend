@@ -89,8 +89,8 @@ const StatePropertyTabs = () => {
   const smoothScroll = (direction) => {
     const container = scrollRef.current;
     const distance = window.innerWidth < 768 ? 330 : 550;
-    const step = 1;
-    let scrolled = 0;
+    const step = 5;
+    let scrolled = 10;
 
     const scrollStep = () => {
       if (scrolled < distance) {

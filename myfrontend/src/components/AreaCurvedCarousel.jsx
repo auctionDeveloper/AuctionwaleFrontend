@@ -90,16 +90,16 @@ const toggleLike = (index) => {
   }, []);
 
   return (
-    <div className="w-full bg-white relative">
+    <div className="w-full bg-white relative mt-[-53px] sm:mt-[-25px]">
       <div className="w-full py-8 px-5">
         <div className="flex flex-col items-center justify-center mb-6">
                     <div
-  className="flex items-center gap-2 text-xl sm:text-3xl font-bold text-gray-800 border-b-4 border-red-600 pb-1 mb-2 cursor-pointer"
+  className="flex items-center gap-2 text-md  sm:text-3xl font-bold text-gray-800 border-b-2 sm:border-b-4 border-red-600 pb-1 mb-2 cursor-pointer"
   onClick={() => setShowDropdown(!showDropdown)}
 >
   Areawise Auctions
   <svg
-    className={`w-5 h-5 transition-transform duration-200 ${showDropdown ? "rotate-180" : "rotate-0"}`}
+    className={`w-4 h-4 sm:w-5 sm:h-5 transition-transform duration-200 ${showDropdown ? "rotate-180" : "rotate-0"}`}
     fill="none"
     stroke="currentColor"
     strokeWidth="2"
@@ -109,7 +109,7 @@ const toggleLike = (index) => {
   </svg>
 </div>
 
-          <p className="text-xs sm:text-base text-gray-500 mt-1">
+          <p className="text-[11px] sm:text-base text-gray-500 mt-[-5px] items-center">
             Choose your <span className="font-semibold text-gray-700">Dream Area</span>
           </p>
         </div>
@@ -117,13 +117,13 @@ const toggleLike = (index) => {
          {showDropdown && (
           <div
             ref={dropdownRef}
-            className="absolute top-[50px] left-1/2 transform -translate-x-1/7 bg-white shadow-lg rounded-md z-[10000] w-48"
+            className="absolute top-[50px] left-1/2 transform -translate-x-1/7 bg-white shadow-lg rounded-md z-[10000] w-30 sm:w-48"
           >
            <ul className="text-sm text-gray-700">
   {locations.slice(0, 6).map((location, idx) => (
     <li
       key={idx}
-      className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+      className="px-4 py-1 sm:py-2 hover:bg-gray-100 cursor-pointer"
       onClick={() => {
         setShowDropdown(false);
         navigate(`/search_result_page?location=${encodeURIComponent(location)}`);
@@ -133,7 +133,7 @@ const toggleLike = (index) => {
     </li>
   ))}
   <li
-    className="px-4 py-2 text-red-600 hover:bg-gray-100 cursor-pointer font-medium border-t"
+    className="px-4 py-1 sm:py-2 text-red-600 hover:bg-gray-100 cursor-pointer font-medium border-t"
     onClick={() => {
       setShowDropdown(false);
       navigate("/area_auction");
@@ -148,7 +148,7 @@ const toggleLike = (index) => {
           </div>
         )}
 
-        <div ref={scrollRef} className="flex overflow-x-auto scroll-smooth no-scrollbar space-x-4 sm:space-x-5">
+        <div ref={scrollRef} className="mt-[-10px] flex overflow-x-auto scroll-smooth no-scrollbar space-x-3 sm:space-x-5">
           {propertyData.map((property, index) => (
   <div
     key={index}
@@ -201,10 +201,10 @@ const toggleLike = (index) => {
 
       <div className="flex justify-center gap-4 sm:gap-6 mb-6">
         <button onClick={() => scroll("left")}>
-          <ArrowLeftCircle className="w-8 h-8 sm:w-10 sm:h-10 text-black hover:text-red-600 transition" />
+          <ArrowLeftCircle className="w-8 h-8 sm:w-10 sm:h-10 text-black hover:text-red-600 transition hidden sm:block" />
         </button>
         <button onClick={() => scroll("right")}>
-          <ArrowRightCircle className="w-8 h-8 sm:w-10 sm:h-10 text-black hover:text-red-600 transition" />
+          <ArrowRightCircle className="w-8 h-8 sm:w-10 sm:h-10 text-black hover:text-red-600 transition hidden sm:block" />
         </button>
       </div>
     </div>

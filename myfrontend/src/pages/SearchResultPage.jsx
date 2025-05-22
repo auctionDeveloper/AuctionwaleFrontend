@@ -20,54 +20,50 @@ export default function SearchResultPage({ category, availability, location, bud
   const queryStartDate = searchParams.get("startDate");
   const queryEndDate = searchParams.get("endDate");
 
+  useEffect(() => {
+    fetch("/propertyData.json")
+      .then((res) => res.json())
+      .then((json) => {
+        setData(json);
+        const savedWishlist = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+        const likedMap = {};
+        savedWishlist.forEach((item) => {
+          if (item?.id) likedMap[item.id] = true; // ✅ Ensure item has an id
+        });
+        setLiked(likedMap);
+      })
+      .catch((err) => console.error("Fetch error:", err));
+  }, []);
 
+  const toggleLike = (itemId) => {
+    const updatedLikes = { ...liked, [itemId]: !liked[itemId] };
+    setLiked(updatedLikes);
 
-useEffect(() => {
-  fetch("/propertyData.json")
-    .then((res) => res.json())
-    .then((json) => {
-      setData(json);
-      const savedWishlist = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-      const likedMap = {};
-      savedWishlist.forEach((item) => {
-        likedMap[item.id] = true;
-      });
-      setLiked(likedMap);
-    })
-    .catch((err) => console.error("Fetch error:", err));
-}, []);
+    const item = data.find((d) => d.id === itemId);
+    const currentWishlist = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
 
-  
-const toggleLike = (itemId) => {
-  const updatedLikes = { ...liked, [itemId]: !liked[itemId] };
-  setLiked(updatedLikes);
-
-  const item = data.find((d) => d.id === itemId);
-  const currentWishlist = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-
-  if (updatedLikes[itemId]) {
-    const exists = currentWishlist.find((saved) => saved.id === item.id);
-    if (!exists) {
-      const newItem = {
-        id: item.id,
-        src: item.image,
-        title: item.title,
-        location: item.location,
-        subtitle: item.area,
-        bankPrice: item.bankPrice, // ✅ Ensure this is saved for detailspage logic
-        source: "search", // ✅ Important!
-      };
-      const updatedWishlist = [...currentWishlist, newItem];
+    if (updatedLikes[itemId]) {
+      const exists = currentWishlist.find((saved) => saved.id === item.id);
+      if (!exists) {
+        const newItem = {
+          id: item.id,
+          src: item.image,
+          title: item.title,
+          location: item.location,
+          subtitle: item.area,
+          bankPrice: item.bankPrice,
+          source: "search",
+        };
+        const updatedWishlist = [...currentWishlist, newItem];
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedWishlist));
+      }
+    } else {
+      const updatedWishlist = currentWishlist.filter((saved) => saved.id !== item.id);
       localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedWishlist));
     }
-  } else {
-    const updatedWishlist = currentWishlist.filter((saved) => saved.id !== item.id);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedWishlist));
-  }
 
-  window.dispatchEvent(new Event("wishlistUpdated"));
-};
-
+    window.dispatchEvent(new Event("wishlistUpdated"));
+  };
 
   const parsePrice = (price) => {
     if (!price) return 0;
@@ -135,16 +131,15 @@ const toggleLike = (itemId) => {
           />
           {/* Wishlist Heart */}
           <div
-  onClick={() => toggleLike(item.id)}
-  className="absolute top-3 right-3 z-10 bg-white p-1 rounded-full shadow cursor-pointer hover:scale-110 transition"
->
-  {liked[item.id] ? (
-    <Heart className="text-red-500 fill-red-500 w-5 h-5" />
-  ) : (
-    <Heart className="text-gray-400 w-5 h-5" />
-  )}
-</div>
-
+            onClick={() => toggleLike(item.id)}
+            className="absolute top-3 right-3 z-10 bg-white p-1 rounded-full shadow cursor-pointer hover:scale-110 transition"
+          >
+            {liked[item.id] ? (
+              <Heart className="text-red-500 fill-red-500 w-5 h-5" />
+            ) : (
+              <Heart className="text-gray-400 w-5 h-5" />
+            )}
+          </div>
 
           <h2 className="text-lg font-semibold mb-2">{item.title}</h2>
 
