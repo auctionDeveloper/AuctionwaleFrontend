@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function WishlistPage() {
   const [wishlist, setWishlist] = useState([]);
-  const [filter, setFilter] = useState("all");
+  const [filter, setFilter] = useState("all"); // 'all', 'budget', 'area', 'search'
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -15,6 +15,7 @@ export default function WishlistPage() {
     const budgetWishlist = (JSON.parse(localStorage.getItem("wishlist_budget")) || []).map(item => ({ ...item, source: "budget" }));
     const areaWishlist = (JSON.parse(localStorage.getItem("wishlist_area")) || []).map(item => ({ ...item, source: "area" }));
     const searchWishlist = (JSON.parse(localStorage.getItem("wishlist_results")) || []).map(item => ({ ...item, source: "search" }));
+
     setWishlist([...budgetWishlist, ...areaWishlist, ...searchWishlist]);
   };
 
@@ -31,42 +32,48 @@ export default function WishlistPage() {
     localStorage.setItem("wishlist_area", JSON.stringify(updatedArea));
     localStorage.setItem("wishlist_results", JSON.stringify(updatedResults));
 
-    setWishlist([
+    const updatedCombined = [
       ...updatedBudget.map(item => ({ ...item, source: "budget" })),
       ...updatedArea.map(item => ({ ...item, source: "area" })),
       ...updatedResults.map(item => ({ ...item, source: "search" })),
-    ]);
-
+    ];
+    setWishlist(updatedCombined);
     window.dispatchEvent(new Event("wishlistUpdated"));
   };
 
-  const filteredWishlist = filter === "all"
-    ? wishlist
-    : wishlist.filter(item => item.source === filter);
+  const filteredWishlist =
+    filter === "all"
+      ? wishlist
+      : wishlist.filter((item) => item.source === filter);
 
   return (
     <div className="p-6 max-w-7xl mx-auto">
-      <h2 className="text-3xl font-bold text-gray-800 mb-4">My Wishlist</h2>
+      <h2 className="text-3xl font-bold text-gray-800 mb-6 pb-2">My Wishlist</h2>
 
-      {/* Filter Buttons */}
       <div className="flex gap-4 mb-6">
         <button
-          onClick={() => setFilter("all")}
-          className={`px-4 py-2 rounded ${filter === "all" ? "bg-blue-600 text-white" : "bg-gray-200 text-gray-700"}`}
+          onClick={() => setFilter("area")}
+          className={`px-4 py-2 rounded ${filter === "area" ? "bg-green-600 text-white" : "border border-green-600 text-green-600"}`}
         >
-          All
+          Area Wishlist
         </button>
         <button
           onClick={() => setFilter("budget")}
-          className={`px-4 py-2 rounded ${filter === "budget" ? "bg-blue-600 text-white" : "bg-gray-200 text-gray-700"}`}
+          className={`px-4 py-2 rounded ${filter === "budget" ? "bg-blue-600 text-white" : "border border-blue-600 text-blue-600"}`}
         >
           Budget Wishlist
         </button>
         <button
-          onClick={() => setFilter("area")}
-          className={`px-4 py-2 rounded ${filter === "area" ? "bg-blue-600 text-white" : "bg-gray-200 text-gray-700"}`}
+          onClick={() => setFilter("search")}
+          className={`px-4 py-2 rounded ${filter === "search" ? "bg-purple-600 text-white" : "border border-purple-600 text-purple-600"}`}
         >
-          Area Wishlist
+          Search Wishlist
+        </button>
+        <button
+          onClick={() => setFilter("all")}
+          className={`px-4 py-2 rounded ${filter === "all" ? "bg-gray-800 text-white" : "border border-gray-800 text-gray-800"}`}
+        >
+          Show All
         </button>
       </div>
 
@@ -87,6 +94,7 @@ export default function WishlistPage() {
                   <p className="text-sm text-gray-500">Market Price: {item.marketPrice}</p>
                 )}
                 <p className="text-sm text-gray-500">Location: {item.location || "N/A"}</p>
+                {/* Add View More or other buttons below this comment if needed */}
               </div>
               <div
                 onClick={() => removeFromWishlist(item.id, item.source)}
