@@ -178,6 +178,20 @@ const logout = () => {
 };
 
 
+useEffect(() => {
+  const handleScroll = () => {
+    setShowFeatures(false);     // Close desktop dropdown
+    setMobileFeatures(false);  // Close mobile dropdown
+  };
+
+  window.addEventListener('scroll', handleScroll);
+
+  return () => {
+    window.removeEventListener('scroll', handleScroll);
+  };
+}, []);
+
+
   return (
     <>
       <div className="sticky top-0 z-[999] bg-white shadow-md overflow-hidden">
