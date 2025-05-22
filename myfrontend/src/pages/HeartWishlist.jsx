@@ -1,18 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { Heart, ArrowRight } from "lucide-react";
+import { Heart } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 export default function WishlistPage() {
   const [wishlist, setWishlist] = useState([]);
+  const [filter, setFilter] = useState("all");
   const navigate = useNavigate();
 
   useEffect(() => {
+    loadWishlist();
+  }, []);
+
+  const loadWishlist = () => {
     const budgetWishlist = (JSON.parse(localStorage.getItem("wishlist_budget")) || []).map(item => ({ ...item, source: "budget" }));
     const areaWishlist = (JSON.parse(localStorage.getItem("wishlist_area")) || []).map(item => ({ ...item, source: "area" }));
     const searchWishlist = (JSON.parse(localStorage.getItem("wishlist_results")) || []).map(item => ({ ...item, source: "search" }));
-    
     setWishlist([...budgetWishlist, ...areaWishlist, ...searchWishlist]);
-  }, []);
+  };
 
   const removeFromWishlist = (id, source) => {
     const budget = JSON.parse(localStorage.getItem("wishlist_budget")) || [];
@@ -27,37 +31,50 @@ export default function WishlistPage() {
     localStorage.setItem("wishlist_area", JSON.stringify(updatedArea));
     localStorage.setItem("wishlist_results", JSON.stringify(updatedResults));
 
-    const updatedCombined = [
+    setWishlist([
       ...updatedBudget.map(item => ({ ...item, source: "budget" })),
       ...updatedArea.map(item => ({ ...item, source: "area" })),
       ...updatedResults.map(item => ({ ...item, source: "search" })),
-    ];
-    setWishlist(updatedCombined);
+    ]);
+
     window.dispatchEvent(new Event("wishlistUpdated"));
   };
-const saveToList = (item, key) => {
-  const list = JSON.parse(localStorage.getItem(key)) || [];
-  const exists = list.some((saved) => saved.id === item.id);
-  if (!exists) {
-    const newItem = {
-      ...item,
-      source: key === "wishlist_budget" ? "budget" : key === "wishlist_area" ? "area" : "search",
-    };
-    list.push(newItem);
-    localStorage.setItem(key, JSON.stringify(list));
-    setWishlist((prev) => [...prev, newItem]);
-    window.dispatchEvent(new Event("wishlistUpdated"));
-  }
-};
+
+  const filteredWishlist = filter === "all"
+    ? wishlist
+    : wishlist.filter(item => item.source === filter);
 
   return (
     <div className="p-6 max-w-7xl mx-auto">
-      <h2 className="text-3xl font-bold text-gray-800 mb-6 pb-2">My Wishlist</h2>
-      {wishlist.length === 0 ? (
+      <h2 className="text-3xl font-bold text-gray-800 mb-4">My Wishlist</h2>
+
+      {/* Filter Buttons */}
+      <div className="flex gap-4 mb-6">
+        <button
+          onClick={() => setFilter("all")}
+          className={`px-4 py-2 rounded ${filter === "all" ? "bg-blue-600 text-white" : "bg-gray-200 text-gray-700"}`}
+        >
+          All
+        </button>
+        <button
+          onClick={() => setFilter("budget")}
+          className={`px-4 py-2 rounded ${filter === "budget" ? "bg-blue-600 text-white" : "bg-gray-200 text-gray-700"}`}
+        >
+          Budget Wishlist
+        </button>
+        <button
+          onClick={() => setFilter("area")}
+          className={`px-4 py-2 rounded ${filter === "area" ? "bg-blue-600 text-white" : "bg-gray-200 text-gray-700"}`}
+        >
+          Area Wishlist
+        </button>
+      </div>
+
+      {filteredWishlist.length === 0 ? (
         <p className="text-gray-500 text-lg">Your wishlist is empty.</p>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-          {wishlist.map((item) => (
+          {filteredWishlist.map((item) => (
             <div key={`${item.id}-${item.source}`} className="bg-white shadow-md rounded-xl overflow-hidden relative group">
               <img
                 src={item.src}
@@ -70,28 +87,6 @@ const saveToList = (item, key) => {
                   <p className="text-sm text-gray-500">Market Price: {item.marketPrice}</p>
                 )}
                 <p className="text-sm text-gray-500">Location: {item.location || "N/A"}</p>
-
-                <div className="mt-4 flex flex-wrap gap-2">
-  <button
-    onClick={() => saveToList(item, "wishlist_budget")}
-    className="text-sm text-blue-600 border border-blue-600 px-2 py-1 rounded hover:bg-blue-50"
-  >
-    Save to Budget
-  </button>
-  <button
-    onClick={() => saveToList(item, "wishlist_area")}
-    className="text-sm text-green-600 border border-green-600 px-2 py-1 rounded hover:bg-green-50"
-  >
-    Save to Area
-  </button>
-  <button
-    onClick={() => saveToList(item, "wishlist_results")}
-    className="text-sm text-purple-600 border border-purple-600 px-2 py-1 rounded hover:bg-purple-50"
-  >
-    Save to Search
-  </button>
-</div>
-
               </div>
               <div
                 onClick={() => removeFromWishlist(item.id, item.source)}
