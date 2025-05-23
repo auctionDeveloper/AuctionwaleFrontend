@@ -143,7 +143,7 @@ const [showDatePicker, setShowDatePicker] = useState(false);
   };
 
   return (
-    <div className="relative w-auto px-1 sm:px-4 md:px-8 py-10 flex justify-center bg-white pb-2 overflow-visible ">
+    <div className="relative w-auto px-0.9 sm:px-4 md:px-8 py-10 flex justify-center bg-white pb-2 overflow-visible ">
       <div className="w-full max-w-6xl flex flex-col items-center relative text-xs z-20 overflow-visible">
 
         {/* Category Tabs */}

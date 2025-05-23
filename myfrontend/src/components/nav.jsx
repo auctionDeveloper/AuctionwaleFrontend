@@ -91,6 +91,7 @@ const handleClickOutside = (e) => {
 
 
   document.addEventListener('mousedown', handleClickOutside);
+
   return () => {
     document.removeEventListener('mousedown', handleClickOutside);
     window.removeEventListener("storage", updateWishlistCount);
@@ -181,7 +182,7 @@ const logout = () => {
 useEffect(() => {
   const handleScroll = () => {
     setShowFeatures(false);     // Close desktop dropdown
-    setMobileFeatures(false);  // Close mobile dropdown
+  
   };
 
   window.addEventListener('scroll', handleScroll);
@@ -289,10 +290,16 @@ useEffect(() => {
         )}
             </div>
           </div>
-
+           <div ref={menuRef}>
           {/* Mobile Sidebar */}
-          <div ref={mobileSidebarRef} className={`fixed top-0 left-0 h-full w-64 bg-white shadow-lg transform ${isOpen ? 'translate-x-0' : '-translate-x-full'} transition duration-300 z-50 md:hidden`}>
-            <div className="p-6 flex flex-col gap-4 text-lg font-medium text-[#0B3448] overflow-y-auto h-full">
+<div 
+  ref={mobileSidebarRef}
+  className={`fixed top-0 left-0 w-64 h-screen bg-white shadow-lg transform ${
+    isOpen ? 'translate-x-0' : '-translate-x-full'
+  } transition duration-300 z-50 md:hidden overflow-y-auto`}
+>
+  <div className="p-6 flex flex-col gap-4 text-lg font-medium text-[#0B3448]">
+
               <button onClick={toggleSidebar} className="self-end"><X size={28} /></button>
 
               <Link to="/" onClick={toggleSidebar}>Home</Link>
@@ -350,7 +357,7 @@ useEffect(() => {
               
     
             </div>
-          </div>
+          </div> </div>
         </div>
       </div>
 
